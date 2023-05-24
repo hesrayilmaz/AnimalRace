@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PathCreation;
 
 public class CharacterManager : MonoBehaviour
 {
     [SerializeField] private FixedJoystick fixedJoystick;
     [SerializeField] private Animator animator;
+    [SerializeField] private PathCreator pathCreator;
     [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private float forwardSpeed = 2f;
     Vector3 direction, addedPos;
@@ -22,7 +24,6 @@ public class CharacterManager : MonoBehaviour
     {
         if (fixedJoystick.Vertical != 0 || fixedJoystick.Horizontal != 0)
         {
-            //Debug.Log("1111");
             WalkAnimation();
         }
         else
@@ -30,6 +31,16 @@ public class CharacterManager : MonoBehaviour
             IdleAnimation();
         }
     }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            transform.position = pathCreator.path.GetClosestPointOnPath(transform.position);
+        }
+    }
+
 
     private void IdleAnimation()
     {
@@ -50,7 +61,6 @@ public class CharacterManager : MonoBehaviour
 
             direction = (Vector3.forward * fixedJoystick.Vertical + Vector3.right * fixedJoystick.Horizontal);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), Time.fixedDeltaTime * rotateSpeed);
-
         }
     }
 }
