@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMovement : MonoBehaviour
+public class CharacterManager : MonoBehaviour
 {
     [SerializeField] private FixedJoystick fixedJoystick;
     Vector3 direction, addedPos;
