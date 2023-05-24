@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class SimpleCollectibleScript : MonoBehaviour {
 
-	public enum CollectibleTypes {NoType, Type1, Type2, Type3, Type4, Type5}; // you can replace this with your own labels for the types of collectibles in your game!
+	public enum CollectibleTypes {NoType, Coin, Type2, Type3, Type4, Type5}; // you can replace this with your own labels for the types of collectibles in your game!
 
 	public CollectibleTypes CollectibleType; // this gameObject's type
 
@@ -17,13 +17,17 @@ public class SimpleCollectibleScript : MonoBehaviour {
 
 	public GameObject collectEffect;
 
+	private CoinManager coinManager;
+
 	// Use this for initialization
-	void Start () {
-		
+	void Start () 
+	{
+		coinManager = GameObject.Find("CoinManager").GetComponent<CoinManager>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 
 		if (rotate)
 			transform.Rotate (Vector3.up * rotationSpeed * Time.deltaTime, Space.World);
@@ -33,7 +37,7 @@ public class SimpleCollectibleScript : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.tag == "Player") {
-			Collect ();
+			Collect();
 		}
 	}
 
@@ -52,9 +56,9 @@ public class SimpleCollectibleScript : MonoBehaviour {
 
 			Debug.Log ("Do NoType Command");
 		}
-		if (CollectibleType == CollectibleTypes.Type1) {
+		if (CollectibleType == CollectibleTypes.Coin) {
 
-			//Add in code here;
+			coinManager.IncreaseCoin(1);
 
 			Debug.Log ("Do NoType Command");
 		}

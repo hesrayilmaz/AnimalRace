@@ -6,10 +6,10 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     [SerializeField] private FixedJoystick fixedJoystick;
-    Vector3 direction, addedPos;
     [SerializeField] private Animator animator;
     [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private float forwardSpeed = 2f;
+    Vector3 direction, addedPos;
 
     // Start is called before the first frame update
     void Start()
