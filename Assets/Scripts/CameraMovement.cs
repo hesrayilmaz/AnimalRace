@@ -24,7 +24,6 @@ public class CameraMovement : MonoBehaviour
     {
         newPosition = new Vector3(offset.x + player.position.x, offset.y + player.position.y, offset.z + player.position.z);
         //transform.position = Vector3.Lerp(transform.position, newPosition, speed * Time.deltaTime);
-        //transform.LookAt(player.position);
         transform.position = newPosition;
         //transform.rotation = target.rotation;
     }

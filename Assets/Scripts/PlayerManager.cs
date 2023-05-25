@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
 
-public class CharacterManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private FixedJoystick fixedJoystick;
     [SerializeField] private Animator animator;

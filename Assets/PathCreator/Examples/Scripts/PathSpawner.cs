@@ -8,7 +8,7 @@ namespace PathCreation.Examples {
     public class PathSpawner : MonoBehaviour {
 
         public PathCreator pathPrefab;
-        public PathFollower followerPrefab;
+        public AIManager followerPrefab;
         public Transform[] spawnPoints;
 
         void Start () {
