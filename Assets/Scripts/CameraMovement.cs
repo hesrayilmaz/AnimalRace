@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    private Transform player;
     private float speed = 10;
     private Vector3 offset;
     private Vector3 newPosition;
@@ -12,6 +12,7 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         offset = transform.position - player.position;
     }
 

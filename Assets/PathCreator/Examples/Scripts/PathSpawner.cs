@@ -7,7 +7,7 @@ namespace PathCreation.Examples {
 
     public class PathSpawner : MonoBehaviour {
 
-        public PathCreator pathPrefab;
+        /*public PathCreator pathPrefab;
         public AIManager followerPrefab;
         public Transform[] spawnPoints;
 
@@ -19,7 +19,7 @@ namespace PathCreation.Examples {
                 path.transform.parent = t;
                 
             }
-        }
+        }*/
     }
 
 }

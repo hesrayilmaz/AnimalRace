@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2929252283123773937}
   - component: {fileID: 2929252283123773951}
   m_Layer: 5
-  m_Name: Fixed Joystick
+  m_Name: FixedJoystick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -6,17 +6,19 @@ using PathCreation;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private FixedJoystick fixedJoystick;
-    [SerializeField] private Animator animator;
-    [SerializeField] private PathCreator pathCreator;
-    [SerializeField] private float rotateSpeed = 10f;
-    [SerializeField] private float forwardSpeed = 2f;
+    private FixedJoystick fixedJoystick;
+    private Animator animator;
+    private PathCreator pathCreator;
+    [SerializeField] private float rotateSpeed = 100f;
+    [SerializeField] private float forwardSpeed = 5f;
     Vector3 direction, addedPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = transform.GetComponent<Animator>();
+        pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
+        fixedJoystick = GameObject.Find("Canvas").transform.Find("FixedJoystick").GetComponent<FixedJoystick>();
     }
 
     // Update is called once per frame

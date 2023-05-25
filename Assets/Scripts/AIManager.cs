@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
+using PathCreation;
 
-namespace PathCreation.Examples
-{
     // Moves along a path at constant speed.
     // Depending on the end of path instruction, will either loop, reverse, or stop at the end of the path.
     public class AIManager : MonoBehaviour
     {
-        public PathCreator pathCreator;
+        private PathCreator pathCreator;
         private Animator animator;
         public EndOfPathInstruction endOfPathInstruction;
         public float speed = 5;
@@ -24,6 +23,8 @@ namespace PathCreation.Examples
             }
 
             animator = transform.GetComponent<Animator>();
+            pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
+            endOfPathInstruction = EndOfPathInstruction.Loop;
         }
 
         void Update()
@@ -75,4 +76,3 @@ namespace PathCreation.Examples
             distanceTravelled = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
         }
     }
-}
