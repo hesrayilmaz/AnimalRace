@@ -14,7 +14,8 @@ public class ObjectSpawner : MonoBehaviour
     private float currentDistance = 0f;
     private float totalPathLength;
     private float spawnPoint = 10f;
-    
+    private float spacing = 2.5f; // Distance between each spawned object
+
     private void Start()
     {
         totalPathLength = pathCreator.path.length;
@@ -33,10 +34,23 @@ public class ObjectSpawner : MonoBehaviour
         GameObject objectPrefab = objectPrefabs[Random.Range(0, objectPrefabs.Length)];
 
         Vector3 position = pathCreator.path.GetPointAtDistance(spawnPoint);
-        //Quaternion rotation = pathCreator.path.GetRotationAtDistance(spawnPoint);
 
-        // Create the obstacle GameObject at the calculated position
-        GameObject obj = Instantiate(objectPrefab, position, Quaternion.identity, objectContainer);
+        // Calculate the normalized tangent and normal vectors of the path
+        Vector3 tangent = pathCreator.path.GetDirectionAtDistance(spawnPoint);
+        Vector3 normal = new Vector3(-tangent.z, 0f, tangent.x).normalized;
+
+        // Calculate the rotation of the object based on the tangent
+        //Quaternion rotation = Quaternion.LookRotation(tangent, Vector3.up);
+
+        // Offset the initial object's position based on the normal vector
+        position += -normal * spacing * 1.5f;
+
+        // Spawn the rest of the objects with spacing and rotation
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject spawnedObj = Instantiate(objectPrefab, position, Quaternion.identity, objectContainer);
+            position += normal * spacing; // Add spacing in the direction of the normal vector
+        }
 
         spawnPoint += spawnPoint;
     }
