@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class SimpleCollectibleScript : MonoBehaviour {
 
-	public enum CollectibleTypes {NoType, Coin, Type2, Type3, Type4, Type5}; // you can replace this with your own labels for the types of collectibles in your game!
+	public enum CollectibleTypes {NoType, Coin, Chest, Type3, Type4, Type5}; // you can replace this with your own labels for the types of collectibles in your game!
 
 	public CollectibleTypes CollectibleType; // this gameObject's type
 
@@ -62,7 +62,7 @@ public class SimpleCollectibleScript : MonoBehaviour {
 
 			Debug.Log ("Do NoType Command");
 		}
-		if (CollectibleType == CollectibleTypes.Type2) {
+		if (CollectibleType == CollectibleTypes.Chest) {
 
 			//Add in code here;
 

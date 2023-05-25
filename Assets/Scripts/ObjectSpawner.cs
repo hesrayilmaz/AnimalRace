@@ -48,7 +48,7 @@ public class ObjectSpawner : MonoBehaviour
         // Spawn the rest of the objects with spacing and rotation
         for (int i = 0; i < 4; i++)
         {
-            GameObject spawnedObj = Instantiate(objectPrefab, position, Quaternion.identity, objectContainer);
+            GameObject spawnedObj = Instantiate(objectPrefab, new Vector3(position.x,objectPrefab.transform.position.y,position.z), Quaternion.identity, objectContainer);
             position += normal * spacing; // Add spacing in the direction of the normal vector
         }
 
