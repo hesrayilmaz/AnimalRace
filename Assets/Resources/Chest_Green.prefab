@@ -66,6 +66,8 @@ GameObject:
   - component: {fileID: -159678417348804828}
   - component: {fileID: 5909155312586440824}
   - component: {fileID: -7003397352465471233}
+  - component: {fileID: 5828161049315702048}
+  - component: {fileID: 3630410934277902500}
   m_Layer: 0
   m_Name: Chest_Green
   m_TagString: Untagged
@@ -215,6 +217,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.78016186, y: 0.7769118, z: 0.61853456}
   m_Center: {x: 0.0011155605, y: 0.35650274, z: 0.0078042746}
+--- !u!114 &5828161049315702048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7784012661194530565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 3630410934277902500}
+  - {fileID: 0}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &3630410934277902500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7784012661194530565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &8981788318904697472
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 [RequireComponent(typeof(AudioSource))]
 public class SimpleCollectibleScript : MonoBehaviour {
@@ -87,6 +88,6 @@ public class SimpleCollectibleScript : MonoBehaviour {
 			Debug.Log ("Do NoType Command");
 		}
 
-		Destroy (gameObject);
+		PhotonNetwork.Destroy(gameObject);
 	}
 }

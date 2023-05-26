@@ -1348,6 +1348,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2079626718}
     m_Modifications:
+    - target: {fileID: -2577375628246818568, guid: 05642bd0f86d26f43a180981c8e20506, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 175374, guid: 05642bd0f86d26f43a180981c8e20506, type: 3}
       propertyPath: m_Name
       value: penguin
@@ -1644,9 +1648,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterPrefabs:
   - {fileID: 137848, guid: b274f055acd44484e979267107f9a3c4, type: 3}
-  - {fileID: 166016, guid: 58c9c4d51d1ea204c9a6b938c32eaa95, type: 3}
-  - {fileID: 175374, guid: 05642bd0f86d26f43a180981c8e20506, type: 3}
-  - {fileID: 106736, guid: e7a2f6d72c4206f4d9e0014118520770, type: 3}
   pathCreator: {fileID: 1073702041}
 --- !u!1 &737201405
 GameObject:
@@ -4510,6 +4511,10 @@ PrefabInstance:
     - target: {fileID: -5048916954865384683, guid: a390a14f1dfa85d4c87b82d85bd021d4, type: 3}
       propertyPath: lanePosition
       value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -5022058741975662311, guid: a390a14f1dfa85d4c87b82d85bd021d4, type: 3}
+      propertyPath: sceneViewId
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 137848, guid: a390a14f1dfa85d4c87b82d85bd021d4, type: 3}
       propertyPath: m_Name

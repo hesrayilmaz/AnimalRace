@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
-
+using Photon.Pun;
 public class ObjectSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] objectPrefabs;
@@ -48,7 +48,7 @@ public class ObjectSpawner : MonoBehaviour
         // Spawn the rest of the objects with spacing and rotation
         for (int i = 0; i < 4; i++)
         {
-            GameObject spawnedObj = Instantiate(objectPrefab, new Vector3(position.x,objectPrefab.transform.position.y,position.z), Quaternion.identity, objectContainer);
+            GameObject spawnedObj = PhotonNetwork.Instantiate(objectPrefab.name, new Vector3(position.x,objectPrefab.transform.position.y,position.z), Quaternion.identity);
             position += normal * spacing; // Add spacing in the direction of the normal vector
         }
 
