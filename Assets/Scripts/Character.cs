@@ -7,7 +7,7 @@ public class Character {
 
     public string characterName;
     public Transform characterPrefab;
-    private string isPurchased = "false";
-    private string isSelected = "false";
+    public string isPurchased = "false";
+    public string isSelected = "false";
     public int price;
 }

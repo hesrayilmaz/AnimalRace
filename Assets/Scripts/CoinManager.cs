@@ -38,7 +38,7 @@ public class CoinManager : MonoBehaviour
         PlayerPrefs.SetInt("coin", amount);
     }
 
-    public int GetCoin()
+    public int GetCoins()
     {
         return PlayerPrefs.GetInt("coin");
     }

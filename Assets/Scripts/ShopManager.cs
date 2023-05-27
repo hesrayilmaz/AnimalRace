@@ -1,25 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
     private int currentCharacterIndex = 0;
 
-    //public string blockPlayerPrefs = "CurrentBlock";
+    private string characterPlayerPrefs = "CurrentCharacter";
 
     private Transform currentIcon;
 
-    public Button buttonPurchaseItem;
-    public Text purchaseText;
+    [SerializeField] private GameObject buttonPurchaseItem;
+    [SerializeField] private TextMeshProUGUI purchaseText;
 
-    public Button buttonSelectItem;
-    public Transform textSelectedItem;
+    [SerializeField] private GameObject buttonSelectItem;
+    [SerializeField] private GameObject textSelectedItem;
 
-    public Vector3 characterIconPosition;
+    [SerializeField] private Vector3 characterIconPosition;
 
-    public float characterSpinSpeed = 100;
+    [SerializeField] private float characterSpinSpeed = 100;
     private float characterRotation = 0;
 
     [SerializeField] private Characters characters;
@@ -27,7 +27,7 @@ public class ShopManager : MonoBehaviour
     private Character selectedCharacter;
     private int charactersLength;
 
-    public CoinManager coinManager;
+    [SerializeField] private CoinManager coinManager;
 
     //[Tooltip("The/texture of the icon when it is locked ( The black color on locked 3d models )")]
     //public Texture lockedTexture;
@@ -36,29 +36,22 @@ public class ShopManager : MonoBehaviour
     {
         //ResetToDefault();
 
-        //characters = GameObject.Find("Blocks").GetComponent<BlockController>();
         charactersLength = characters.GetCharacters().Length;
 
-        // Listen for a click to purchase item button to purchase current block
-        //buttonPurchaseItem.onClick.AddListener(delegate { PurchaseItem(); });
-
-        // Listen for a click to select item button to select current block if it is purchased
-        //buttonSelectItem.onClick.AddListener(delegate { SelectItem(); });
-
         //Set first block as purchased as default 
-        //PlayerPrefs.SetString(characters.GetCharacter(0).characterName + "Purchased", "true");
-        //characters.GetCharacter(0).isPurchased = PlayerPrefs.GetString(characters.GetCharacter(0).characterName + "Purchased");
+        PlayerPrefs.SetString(characters.GetCharacter(0).characterName + "Purchased", "true");
+        characters.GetCharacter(0).isPurchased = PlayerPrefs.GetString(characters.GetCharacter(0).characterName + "Purchased");
 
-        //PlayerPrefs.SetString(characters.GetCharacter(0).characterName + "Selected", "true");
-        //characters.GetCharacter(0).isSelected = PlayerPrefs.GetString(characters.GetCharacter(0).characterName + "Selected", "true");
+        PlayerPrefs.SetString(characters.GetCharacter(0).characterName + "Selected", "true");
+        characters.GetCharacter(0).isSelected = PlayerPrefs.GetString(characters.GetCharacter(0).characterName + "Selected", "true");
 
 
         // Get all purchased status from all the blocks, using PlayerPrefs
-        /*for (int index = 1; index < charactersLength; index++)
+        for (int index = 1; index < charactersLength; index++)
         {
             characters.GetCharacter(index).isPurchased = PlayerPrefs.GetString(characters.GetCharacter(index).characterName + "Purchased", "false");
             characters.GetCharacter(index).isSelected = PlayerPrefs.GetString(characters.GetCharacter(index).characterName + "Selected", "false");
-        }*/
+        }
 
         
         //currentCharacterIndex = PlayerPrefs.GetInt(blockPlayerPrefs, currentCharacterIndex);
@@ -104,57 +97,55 @@ public class ShopManager : MonoBehaviour
             if (currentIcon.GetComponent<Animation>()) currentIcon.GetComponent<Animation>().Play();
         }
 
-        /*
+        
         if (currentCharacter.isPurchased == "false")
         {
-            buttonPurchaseItem.interactable = true;
-            buttonPurchaseItem.gameObject.SetActive(true);
+            buttonPurchaseItem.SetActive(true);
             purchaseText.text = currentCharacter.price.ToString();
-            buttonSelectItem.gameObject.SetActive(false);
-            textSelectedItem.gameObject.SetActive(false);
+            buttonSelectItem.SetActive(false);
+            textSelectedItem.SetActive(false);
         }
         else
         {
-            buttonPurchaseItem.interactable = false;
-            buttonPurchaseItem.gameObject.SetActive(false);
+            buttonPurchaseItem.SetActive(false);
 
             if (currentCharacter.isSelected == "true")
             {
-                buttonSelectItem.gameObject.SetActive(false);
-                textSelectedItem.gameObject.SetActive(true);
+                buttonSelectItem.SetActive(false);
+                textSelectedItem.SetActive(true);
             }
             else
             {
-                textSelectedItem.gameObject.SetActive(false);
-                buttonSelectItem.gameObject.SetActive(true);
+                textSelectedItem.SetActive(false);
+                buttonSelectItem.SetActive(true);
             }
-        }*/
+        }
 
     }
-    /*
+    
     public void PurchaseItem()
     {
-        if (buttonPurchaseItem.GetComponent<Animation>()) buttonPurchaseItem.GetComponent<Animation>().Play();
+        //if (buttonPurchaseItem.GetComponent<Animation>()) buttonPurchaseItem.GetComponent<Animation>().Play();
 
         if (currentCharacter.price <= coinManager.GetCoins())
         {
-            if (selectedBlock != null)
+            if (selectedCharacter != null)
             {
-                Debug.Log("iffff selected block before: " + selectedBlock.characterName);
-                PlayerPrefs.SetString(selectedBlock.characterName + "Selected", "false");
-                selectedBlock.isSelected = PlayerPrefs.GetString(selectedBlock.characterName + "Selected");
+                Debug.Log("iffff selected block before: " + selectedCharacter.characterName);
+                PlayerPrefs.SetString(selectedCharacter.characterName + "Selected", "false");
+                selectedCharacter.isSelected = PlayerPrefs.GetString(selectedCharacter.characterName + "Selected");
             }
             else
             {
-                foreach (Block block in characters.GetCharacters())
+                foreach (Character chr in characters.GetCharacters())
                 {
-                    if (block.isSelected == "true")
-                        selectedBlock = block;
+                    if (chr.isSelected == "true")
+                        selectedCharacter = chr;
                 }
-                Debug.Log("elseee selected block before: " + selectedBlock.characterName);
+                Debug.Log("elseee selected block before: " + selectedCharacter.characterName);
                 //selectedBlock = characters.GetCharacter(0);
-                PlayerPrefs.SetString(selectedBlock.characterName + "Selected", "false");
-                selectedBlock.isSelected = PlayerPrefs.GetString(selectedBlock.characterName + "Selected");
+                PlayerPrefs.SetString(selectedCharacter.characterName + "Selected", "false");
+                selectedCharacter.isSelected = PlayerPrefs.GetString(selectedCharacter.characterName + "Selected");
             }
 
             coinManager.DecreaseCoin(currentCharacter.price);
@@ -162,56 +153,56 @@ public class ShopManager : MonoBehaviour
             currentCharacter.isPurchased = PlayerPrefs.GetString(currentCharacter.characterName + "Purchased");
             PlayerPrefs.SetString(currentCharacter.characterName + "Selected", "true");
             currentCharacter.isSelected = PlayerPrefs.GetString(currentCharacter.characterName + "Selected");
-            selectedBlock = currentCharacter;
+            selectedCharacter = currentCharacter;
 
-            Debug.Log("selected block after: " + selectedBlock.characterName);
+            Debug.Log("selected block after: " + selectedCharacter.characterName);
             string selectedcharacterName = currentCharacter.characterName;
-            PlayerPrefs.SetString("SelectedcharacterName", selectedcharacterName);
+            PlayerPrefs.SetString("SelectedCharacter", selectedcharacterName);
 
-            buttonPurchaseItem.gameObject.SetActive(false);
-            textSelectedItem.gameObject.SetActive(true);
+            buttonPurchaseItem.SetActive(false);
+            textSelectedItem.SetActive(true);
 
-            PlayerPrefs.SetInt(blockPlayerPrefs, currentCharacterIndex);
+            PlayerPrefs.SetInt(characterPlayerPrefs, currentCharacterIndex);
         }
 
-    }*/
+    }
 
-    /*
+    
     public void SelectItem()
     {
-        if (buttonSelectItem.GetComponent<Animation>()) buttonSelectItem.GetComponent<Animation>().Play();
+        //if (buttonSelectItem.GetComponent<Animation>()) buttonSelectItem.GetComponent<Animation>().Play();
 
-        if (selectedBlock != null)
+        if (selectedCharacter != null)
         {
-            PlayerPrefs.SetString(selectedBlock.characterName + "Selected", "false");
-            selectedBlock.isSelected = PlayerPrefs.GetString(selectedBlock.characterName + "Selected");
+            PlayerPrefs.SetString(selectedCharacter.characterName + "Selected", "false");
+            selectedCharacter.isSelected = PlayerPrefs.GetString(selectedCharacter.characterName + "Selected");
         }
         else
         {
-            foreach (Block block in characters.GetCharacters())
+            foreach (Character chr in characters.GetCharacters())
             {
-                if (block.isSelected == "true")
-                    selectedBlock = block;
+                if (chr.isSelected == "true")
+                    selectedCharacter = chr;
             }
-            Debug.Log("elseee selected block before: " + selectedBlock.characterName);
+            Debug.Log("elseee selected block before: " + selectedCharacter.characterName);
             //selectedBlock = characters.GetCharacter(0);
-            PlayerPrefs.SetString(selectedBlock.characterName + "Selected", "false");
-            selectedBlock.isSelected = PlayerPrefs.GetString(selectedBlock.characterName + "Selected");
+            PlayerPrefs.SetString(selectedCharacter.characterName + "Selected", "false");
+            selectedCharacter.isSelected = PlayerPrefs.GetString(selectedCharacter.characterName + "Selected");
         }
 
         PlayerPrefs.SetString(currentCharacter.characterName + "Selected", "true");
         currentCharacter.isSelected = PlayerPrefs.GetString(currentCharacter.characterName + "Selected");
-        selectedBlock = currentCharacter;
+        selectedCharacter = currentCharacter;
 
         string selectedcharacterName = currentCharacter.characterName;
-        PlayerPrefs.SetString("SelectedcharacterName", selectedcharacterName);
+        PlayerPrefs.SetString("SelectedCharacter", selectedcharacterName);
 
-        textSelectedItem.gameObject.SetActive(true);
-        buttonSelectItem.gameObject.SetActive(false);
+        textSelectedItem.SetActive(true);
+        buttonSelectItem.SetActive(false);
 
-        PlayerPrefs.SetInt(blockPlayerPrefs, currentCharacterIndex);
+        PlayerPrefs.SetInt(characterPlayerPrefs, currentCharacterIndex);
     }
-    */
+    
 
     /*
     //If settings should be reset
