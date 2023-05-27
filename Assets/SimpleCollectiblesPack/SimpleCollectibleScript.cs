@@ -20,24 +20,31 @@ public class SimpleCollectibleScript : MonoBehaviour {
 
 	private CoinManager coinManager;
 
+	private PhotonView pv;
+
+
 	// Use this for initialization
 	void Start () 
 	{
+		pv = GetComponent<PhotonView>();
 		coinManager = GameObject.Find("CoinManager").GetComponent<CoinManager>();
 	}
-	
+
+
 	// Update is called once per frame
 	void Update () 
 	{
-
-		if (rotate)
-			transform.Rotate (Vector3.up * rotationSpeed * Time.deltaTime, Space.World);
-
+        if (pv.IsMine)
+        {
+			if (rotate)
+				transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime, Space.World);
+		}
 	}
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Player" || other.tag=="AI") {
+		if ((other.tag == "Player" || other.tag=="AI") && pv.IsMine) 
+		{
 			Collect();
 		}
 	}

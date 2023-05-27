@@ -15,6 +15,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float forwardSpeed = 5f;
     Vector3 direction, addedPos;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +28,7 @@ public class PlayerManager : MonoBehaviour
         pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
         fixedJoystick = GameObject.Find("Canvas").transform.Find("FixedJoystick").GetComponent<FixedJoystick>();
     }
+
 
     // Update is called once per frame
     void Update()

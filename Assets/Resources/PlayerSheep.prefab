@@ -655,7 +655,6 @@ GameObject:
   - component: {fileID: -3560911235811969672}
   - component: {fileID: 6670052490626752466}
   - component: {fileID: 7672334471092778295}
-  - component: {fileID: 1878456226009272493}
   - component: {fileID: 4877193724232584591}
   m_Layer: 0
   m_Name: PlayerSheep
@@ -785,22 +784,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &1878456226009272493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &4877193724232584591
 MonoBehaviour:
   m_ObjectHideFlags: 0

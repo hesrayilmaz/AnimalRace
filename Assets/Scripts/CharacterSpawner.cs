@@ -8,14 +8,14 @@ using Photon.Pun;
 public class CharacterSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] characterPrefabs;
-    private Vector3[] spawnPositions;
+    private List<Vector3> spawnPositions;
     [SerializeField] private PathCreator pathCreator;
     private float spacing = 2.5f; // Distance between each spawned character
 
     // Start is called before the first frame update
     void Start()
     {
-        spawnPositions = new Vector3[4];
+        spawnPositions = new List<Vector3>();
         SpawnCharacters();
     }
 
@@ -36,7 +36,7 @@ public class CharacterSpawner : MonoBehaviour
         // Spawn the rest of the objects with spacing and rotation
         for (int i = 0; i < 4; i++)
         {
-            spawnPositions[i] = position;
+            spawnPositions.Add(position);
             
             
             //GameObject spawnedObj = Instantiate(characterPrefabs[i], position, Quaternion.identity, transform);
@@ -48,7 +48,10 @@ public class CharacterSpawner : MonoBehaviour
            
             position += normal * spacing; // Add spacing in the direction of the normal vector
         }
-        PhotonNetwork.Instantiate(characterPrefabs[0].name, spawnPositions[UnityEngine.Random.Range(0,spawnPositions.Length)], Quaternion.identity);
+        Debug.Log("spawnPositions.Count "+ spawnPositions.Count);
+        int randomIndex = UnityEngine.Random.Range(0, spawnPositions.Count);
+        PhotonNetwork.Instantiate(characterPrefabs[0].name, spawnPositions[randomIndex], Quaternion.identity);
+        spawnPositions.RemoveAt(randomIndex);
     }
 
 }

@@ -5080,7 +5080,6 @@ GameObject:
   - component: {fileID: -2401636754054403659}
   - component: {fileID: 2883839970846660279}
   - component: {fileID: 9065389670697014742}
-  - component: {fileID: -1685079021686630644}
   - component: {fileID: 8092917443145637893}
   m_Layer: 0
   m_Name: AIMole
@@ -5210,22 +5209,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &-1685079021686630644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &8092917443145637893
 MonoBehaviour:
   m_ObjectHideFlags: 0

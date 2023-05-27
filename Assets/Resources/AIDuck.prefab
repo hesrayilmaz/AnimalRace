@@ -1372,7 +1372,6 @@ GameObject:
   - component: {fileID: 516451964573099926}
   - component: {fileID: -1177910543451227240}
   - component: {fileID: -6771535703307986985}
-  - component: {fileID: 4270199128466983642}
   - component: {fileID: -4535073364164703533}
   m_Layer: 0
   m_Name: AIDuck
@@ -1503,22 +1502,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &4270199128466983642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 166016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &-4535073364164703533
 MonoBehaviour:
   m_ObjectHideFlags: 0

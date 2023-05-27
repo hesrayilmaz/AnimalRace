@@ -655,7 +655,6 @@ GameObject:
   - component: {fileID: 7943963152027075076}
   - component: {fileID: 408660780816081130}
   - component: {fileID: 4956843247053448243}
-  - component: {fileID: 5903775834677794466}
   - component: {fileID: 8955947267527168083}
   m_Layer: 0
   m_Name: AISheep
@@ -786,22 +785,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &5903775834677794466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &8955947267527168083
 MonoBehaviour:
   m_ObjectHideFlags: 0

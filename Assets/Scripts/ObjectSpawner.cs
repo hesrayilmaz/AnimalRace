@@ -21,10 +21,14 @@ public class ObjectSpawner : MonoBehaviour
         totalPathLength = pathCreator.path.length;
 
         Debug.Log("totalPathLength: " + totalPathLength);
-        while (spawnPoint <= totalPathLength)
+        if (PhotonNetwork.IsMasterClient)
         {
-            SpawnObject();
+            while (spawnPoint <= totalPathLength)
+            {
+                SpawnObject();
+            }
         }
+       
     }
 
 
