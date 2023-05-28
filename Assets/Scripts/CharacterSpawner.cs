@@ -8,6 +8,8 @@ using Photon.Pun;
 public class CharacterSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] characterPrefabs;
+    private Characters characters;
+    private string playerCharacterName;
     private List<Vector3> spawnPositions;
     [SerializeField] private PathCreator pathCreator;
     private float spacing = 2.5f; // Distance between each spawned character
@@ -15,9 +17,24 @@ public class CharacterSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        characters = GameObject.Find("Characters").GetComponent<Characters>();
         spawnPositions = new List<Vector3>();
+        //playerCharacter = FindCharacterByName(PlayerPrefs.GetString("SelectedCharacter", characters.GetCharacter(0).characterName)).characterPrefab;
+        playerCharacterName = "Player"+PlayerPrefs.GetString("SelectedCharacter", characters.GetCharacter(0).characterName);
         SpawnCharacters();
     }
+
+   /* private Character FindCharacterByName(string characterName)
+    {
+        foreach (Character character in characters.GetCharacters())
+        {
+            if (character.characterName == characterName)
+            {
+                return character;
+            }
+        }
+        return null; // Character not found
+    }*/
 
     private void SpawnCharacters()
     {
@@ -50,7 +67,7 @@ public class CharacterSpawner : MonoBehaviour
         }
         Debug.Log("spawnPositions.Count "+ spawnPositions.Count);
         int randomIndex = UnityEngine.Random.Range(0, spawnPositions.Count);
-        PhotonNetwork.Instantiate(characterPrefabs[0].name, spawnPositions[randomIndex], Quaternion.identity);
+        PhotonNetwork.Instantiate(playerCharacterName, spawnPositions[randomIndex], Quaternion.identity);
         spawnPositions.RemoveAt(randomIndex);
     }
 

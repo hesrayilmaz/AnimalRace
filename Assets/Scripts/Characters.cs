@@ -7,7 +7,6 @@ public class Characters : MonoBehaviour
 
     [SerializeField] private Character[] characterArray;
 
-
     public Character[] GetCharacters()
     {
         return characterArray;
