@@ -6,7 +6,6 @@ using TMPro;
 public class ShopManager : MonoBehaviour
 {
     private int currentCharacterIndex = 0;
-
     private string characterPlayerPrefs = "CurrentCharacter";
 
     private Transform currentIcon;
@@ -29,20 +28,18 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField] private CoinManager coinManager;
 
-    //[Tooltip("The/texture of the icon when it is locked ( The black color on locked 3d models )")]
-    //public Texture lockedTexture;
-
     void Start()
     {
-        //ResetToDefault();
         characters = GameObject.Find("Characters").GetComponent<Characters>();
         charactersLength = characters.GetCharacters().Length;
 
-        //Set first block as purchased as default 
+        //ResetToDefault();
+
+        //Set first character as purchased as default 
         PlayerPrefs.SetString(characters.GetCharacter(0).characterName + "Purchased", "true");
         characters.GetCharacter(0).isPurchased = PlayerPrefs.GetString(characters.GetCharacter(0).characterName + "Purchased");
 
-        PlayerPrefs.SetString(characters.GetCharacter(0).characterName + "Selected", "true");
+        //PlayerPrefs.SetString(characters.GetCharacter(0).characterName + "Selected", "true");
         characters.GetCharacter(0).isSelected = PlayerPrefs.GetString(characters.GetCharacter(0).characterName + "Selected", "true");
 
 
@@ -53,7 +50,12 @@ public class ShopManager : MonoBehaviour
             characters.GetCharacter(index).isSelected = PlayerPrefs.GetString(characters.GetCharacter(index).characterName + "Selected", "false");
         }
 
-        
+        foreach (Character chr in characters.GetCharacters())
+        {
+            if (chr.isSelected == "true")
+                selectedCharacter = chr;
+        }
+
         //currentCharacterIndex = PlayerPrefs.GetInt(blockPlayerPrefs, currentCharacterIndex);
         currentCharacter = characters.GetCharacter(currentCharacterIndex);
 
@@ -193,7 +195,7 @@ public class ShopManager : MonoBehaviour
         PlayerPrefs.SetString(currentCharacter.characterName + "Selected", "true");
         currentCharacter.isSelected = PlayerPrefs.GetString(currentCharacter.characterName + "Selected");
         selectedCharacter = currentCharacter;
-
+        Debug.Log("selected block after: " + selectedCharacter.characterName);
         string selectedcharacterName = currentCharacter.characterName;
         PlayerPrefs.SetString("SelectedCharacter", selectedcharacterName);
 
@@ -202,20 +204,21 @@ public class ShopManager : MonoBehaviour
 
         PlayerPrefs.SetInt(characterPlayerPrefs, currentCharacterIndex);
     }
-    
 
-    /*
+
+    
     //If settings should be reset
     private void ResetToDefault()
     {
-        PlayerPrefs.SetString(characters.GetCharacter(1).characterName + "Selected", "false");
-        characters.GetCharacter(1).isSelected = PlayerPrefs.GetString(characters.GetCharacter(0).characterName + "Selected", "true");
-        PlayerPrefs.SetString(characters.GetCharacter(2).characterName + "Selected", "false");
-        characters.GetCharacter(2).isSelected = PlayerPrefs.GetString(characters.GetCharacter(0).characterName + "Selected", "true");
-        PlayerPrefs.SetString(characters.GetCharacter(2).characterName + "Purchased", "false");
-        characters.GetCharacter(2).isPurchased = PlayerPrefs.GetString(characters.GetCharacter(0).characterName + "Selected", "true");
+        for (int index = 1; index < charactersLength; index++)
+        {
+            PlayerPrefs.SetString(characters.GetCharacter(index).characterName + "Purchased", "false");
+            characters.GetCharacter(index).isPurchased = PlayerPrefs.GetString(characters.GetCharacter(index).characterName + "Purchased");
+            PlayerPrefs.SetString(characters.GetCharacter(index).characterName + "Selected", "false");
+            characters.GetCharacter(index).isSelected = PlayerPrefs.GetString(characters.GetCharacter(index).characterName + "Selected");
+        }
     }
-    */
+    
     void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;

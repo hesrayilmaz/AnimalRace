@@ -21,6 +21,7 @@ public class CharacterSpawner : MonoBehaviour
         spawnPositions = new List<Vector3>();
         //playerCharacter = FindCharacterByName(PlayerPrefs.GetString("SelectedCharacter", characters.GetCharacter(0).characterName)).characterPrefab;
         playerCharacterName = "Player"+PlayerPrefs.GetString("SelectedCharacter", characters.GetCharacter(0).characterName);
+        Debug.Log("selected character while spawning: " + playerCharacterName);
         SpawnCharacters();
     }
 
