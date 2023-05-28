@@ -11,9 +11,10 @@ public class PlayerManager : MonoBehaviour
     private Animator animator;
     private PathCreator pathCreator;
     private PhotonView pv;
-    [SerializeField] private float rotateSpeed = 100f;
-    [SerializeField] private float forwardSpeed = 5f;
+    private float rotateSpeed = 100f;
+    private float forwardSpeed = 20f;
     Vector3 direction, addedPos;
+    private bool isFinished = false;
 
     private void Awake()
     {
@@ -37,20 +38,35 @@ public class PlayerManager : MonoBehaviour
         {
             if (fixedJoystick.Vertical != 0 || fixedJoystick.Horizontal != 0)
             {
-                WalkAnimation();
+                RunAnimation();
             }
             else
             {
                 IdleAnimation();
             }
+
+            /*if (isFinished)
+            {
+                transform.Rotate(Vector3.up * 20 * Time.deltaTime, Space.World);
+            }*/
         }
         
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Finish" && pv.IsMine)
+        {
+            fixedJoystick.gameObject.SetActive(false);
+            forwardSpeed = 0;
+            isFinished = true;
+            JumpAnimation();
+        }
+    }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Ground" && pv.IsMine)
+        if (other.tag == "Ground" && pv.IsMine)
         {
             transform.position = pathCreator.path.GetClosestPointOnPath(transform.position);
         }
@@ -62,9 +78,14 @@ public class PlayerManager : MonoBehaviour
         animator.SetTrigger("Idle");
     }
 
-    private void WalkAnimation()
+    private void RunAnimation()
     {
-        animator.SetTrigger("Walk");
+        animator.SetTrigger("Run");
+    }
+
+    private void JumpAnimation()
+    {
+        animator.SetTrigger("Jump");
     }
 
     private void FixedUpdate()
@@ -91,7 +112,7 @@ public class PlayerManager : MonoBehaviour
     IEnumerator SpeedUp()
     {
         forwardSpeed = 10;
-        yield return new WaitForSeconds(4f);
-        forwardSpeed = 5;
+        yield return new WaitForSeconds(3f);
+        forwardSpeed = 20;
     }
 }

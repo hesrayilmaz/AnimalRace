@@ -14,7 +14,13 @@ public class AIManager : MonoBehaviour
     float distanceTravelled;
     public float lanePosition;
     private float spacing = 2.5f; // Distance between each spawned object
-        
+    private PhotonView pv;
+    private bool isFinished = false;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start() 
     {
@@ -24,59 +30,85 @@ public class AIManager : MonoBehaviour
             pathCreator.pathUpdated += OnPathChanged;
         }
 
+        pv = GetComponent<PhotonView>();
         animator = transform.GetComponent<Animator>();
         pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
-        endOfPathInstruction = EndOfPathInstruction.Loop;
+        endOfPathInstruction = EndOfPathInstruction.Stop;
     }
 
     void Update()
     {
-            /*if (pathCreator != null)
-             {
-                 distanceTravelled += speed * Time.deltaTime;
-                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
-                 transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
-             }*/
+        /*if (pathCreator != null)
+         {
+             distanceTravelled += speed * Time.deltaTime;
+             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
+             transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
+         }*/
 
-        if (pathCreator != null)
+        if (pv.IsMine)
         {
-            WalkAnimation();
+            if (pathCreator != null)
+            {
+                RunAnimation();
 
-            distanceTravelled += speed * Time.deltaTime;
-            Vector3 positionOnPath = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
+                distanceTravelled += speed * Time.deltaTime;
+                Vector3 positionOnPath = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
 
-            // Calculate the normalized tangent and normal vectors of the path
-            Vector3 tangent = pathCreator.path.GetDirectionAtDistance(distanceTravelled);
-            Vector3 normal = new Vector3(-tangent.z, 0f, tangent.x).normalized;
+                // Calculate the normalized tangent and normal vectors of the path
+                Vector3 tangent = pathCreator.path.GetDirectionAtDistance(distanceTravelled);
+                Vector3 normal = new Vector3(-tangent.z, 0f, tangent.x).normalized;
 
-            // Offset the initial object's position based on the normal vector
-            positionOnPath += -normal * spacing * lanePosition;
+                // Offset the initial object's position based on the normal vector
+                positionOnPath += -normal * spacing * lanePosition;
 
-            transform.position = new Vector3(positionOnPath.x, transform.position.y, positionOnPath.z);
-                
-            // Calculate the rotation of the object based on the tangent
-            transform.rotation = Quaternion.LookRotation(tangent, Vector3.up);
+                transform.position = new Vector3(positionOnPath.x, transform.position.y, positionOnPath.z);
+
+                // Calculate the rotation of the object based on the tangent
+                transform.rotation = Quaternion.LookRotation(tangent, Vector3.up);
+            }
+
+            /*if (isFinished)
+            {
+                transform.Rotate(Vector3.up * 20 * Time.deltaTime, Space.World);
+            }*/
+        }
+       
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Finish" && pv.IsMine)
+        {
+            speed = 0;
+            isFinished = true;
+            JumpAnimation();
         }
     }
 
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.gameObject.tag == "Ground")
-            {
-                transform.position = pathCreator.path.GetClosestPointOnPath(transform.position);
-            }
-        }
+    private void OnTriggerExit(Collider other)
+    {
+         if (other.gameObject.tag == "Ground")
+         {
+             transform.position = pathCreator.path.GetClosestPointOnPath(transform.position);
+         }
+    }
 
-        private void WalkAnimation()
-        {
-            animator.SetTrigger("Walk");
-        }
+    private void RunAnimation()
+    {
+        animator.SetTrigger("Run");
+    }
 
-        // If the path changes during the game, update the distance travelled so that the follower's position on the new path
-        // is as close as possible to its position on the old path
-        void OnPathChanged() {
-            distanceTravelled = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
-        }
+    private void JumpAnimation()
+    {
+        animator.SetTrigger("Jump");
+    }
+
+    // If the path changes during the game, update the distance travelled so that the follower's position on the new path
+    // is as close as possible to its position on the old path
+    void OnPathChanged() {
+         distanceTravelled = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
+    }
 
     [PunRPC]
     public void RPC_SpeedUp()
@@ -87,7 +119,7 @@ public class AIManager : MonoBehaviour
     IEnumerator SpeedUp()
     {
         speed = 10;
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         speed = 3;
     }
 }

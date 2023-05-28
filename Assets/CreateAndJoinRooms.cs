@@ -13,7 +13,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     private bool isGameStarted = false;
     [SerializeField] private TextMeshProUGUI countdown;
     private float timer;
-    private float maxWaitTime = 10f;
+    private float maxWaitTime = 5f;
     private int playerCount;
     [SerializeField] private PhotonView myPhotonView;
 
