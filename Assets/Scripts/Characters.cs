@@ -4,8 +4,22 @@ using UnityEngine;
 
 public class Characters : MonoBehaviour
 {
+    public static Characters instance;
 
     [SerializeField] private Character[] characterArray;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     public Character[] GetCharacters()
     {

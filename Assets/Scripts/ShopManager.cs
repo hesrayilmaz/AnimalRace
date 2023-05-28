@@ -22,7 +22,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private float characterSpinSpeed = 100;
     private float characterRotation = 0;
 
-    [SerializeField] private Characters characters;
+    private Characters characters;
     private Character currentCharacter;
     private Character selectedCharacter;
     private int charactersLength;
@@ -35,7 +35,7 @@ public class ShopManager : MonoBehaviour
     void Start()
     {
         //ResetToDefault();
-
+        characters = GameObject.Find("Characters").GetComponent<Characters>();
         charactersLength = characters.GetCharacters().Length;
 
         //Set first block as purchased as default 
