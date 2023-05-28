@@ -22,6 +22,8 @@ public class SimpleCollectibleScript : MonoBehaviour {
 
 	private PhotonView pv;
 
+	private GameObject colliderObject;
+
 
 	// Use this for initialization
 	void Start () 
@@ -45,6 +47,7 @@ public class SimpleCollectibleScript : MonoBehaviour {
 	{
 		if ((other.tag == "Player" || other.tag=="AI") && pv.IsMine) 
 		{
+			colliderObject = other.gameObject;
 			Collect();
 		}
 	}
@@ -68,13 +71,13 @@ public class SimpleCollectibleScript : MonoBehaviour {
 
 			coinManager.IncreaseCoin(1);
 
-			Debug.Log ("Do NoType Command");
+			Debug.Log ("Coin");
 		}
 		if (CollectibleType == CollectibleTypes.Chest) {
 
-			//Add in code here;
+			colliderObject.GetComponent<PhotonView>().RPC("RPC_SpeedUp", RpcTarget.All, null);
 
-			Debug.Log ("Do NoType Command");
+			Debug.Log ("Chest");
 		}
 		if (CollectibleType == CollectibleTypes.Type3) {
 

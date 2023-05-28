@@ -81,4 +81,17 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
+
+    [PunRPC]
+    public void RPC_SpeedUp()
+    {
+        StartCoroutine(SpeedUp());
+    }
+
+    IEnumerator SpeedUp()
+    {
+        forwardSpeed = 10;
+        yield return new WaitForSeconds(4f);
+        forwardSpeed = 5;
+    }
 }
