@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,18 +16,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.JoinLobby();
-    }
-
-    public override void OnJoinedLobby()
-    {
-        //SceneManager.LoadScene("Lobby");
-        PhotonNetwork.JoinOrCreateRoom("Level1", new RoomOptions { MaxPlayers = 4,IsOpen=true,IsVisible=true}, TypedLobby.Default);
-    }
-
-    public override void OnJoinedRoom()
-    {
-        SceneManager.LoadScene("Level1");
+        Debug.Log("Connected to the " + PhotonNetwork.CloudRegion + " server");
     }
 
 }

@@ -10,6 +10,10 @@ public class CharacterSpawner : MonoBehaviour
     [SerializeField] private GameObject[] characterPrefabs;
     private Characters characters;
     private string playerCharacterName;
+    private string AICharacterName;
+    private int playerCount;
+    private int AICount;
+    private int totalCharacterCount = 4;
     private List<Vector3> spawnPositions;
     [SerializeField] private PathCreator pathCreator;
     private float spacing = 2.5f; // Distance between each spawned character
@@ -22,7 +26,14 @@ public class CharacterSpawner : MonoBehaviour
         //playerCharacter = FindCharacterByName(PlayerPrefs.GetString("SelectedCharacter", characters.GetCharacter(0).characterName)).characterPrefab;
         playerCharacterName = "Player"+PlayerPrefs.GetString("SelectedCharacter", characters.GetCharacter(0).characterName);
         Debug.Log("selected character while spawning: " + playerCharacterName);
+        AICharacterName="AI"+ PlayerPrefs.GetString("SelectedCharacter", characters.GetCharacter(0).characterName);
+        playerCount = PlayerPrefs.GetInt("PlayerCount",1);
+        AICount = totalCharacterCount - playerCount;
         SpawnCharacters();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            SpawnAI();
+        }
     }
 
    /* private Character FindCharacterByName(string characterName)
@@ -70,6 +81,16 @@ public class CharacterSpawner : MonoBehaviour
         int randomIndex = UnityEngine.Random.Range(0, spawnPositions.Count);
         PhotonNetwork.Instantiate(playerCharacterName, spawnPositions[randomIndex], Quaternion.identity);
         spawnPositions.RemoveAt(randomIndex);
+    }
+
+    private void SpawnAI()
+    {
+        for(int i=0; i<AICount; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, spawnPositions.Count);
+            GameObject spawnedObj = PhotonNetwork.Instantiate(AICharacterName, spawnPositions[randomIndex], Quaternion.identity);
+            spawnedObj.GetComponent<AIManager>().lanePosition = (1.5f) - i;
+        }
     }
 
 }
