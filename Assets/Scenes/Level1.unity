@@ -2332,6 +2332,7 @@ MonoBehaviour:
   - {fileID: 1516206009078322, guid: 4eca7a8ef879cfb41b294a8c0d69ea58, type: 3}
   - {fileID: 2147647474522964580, guid: 0c1ffc6615ffb334394841486a3ade3b, type: 3}
   - {fileID: 7784012661194530565, guid: 01c17eec7ac939240ac81f78eae21f4f, type: 3}
+  obstaclePrefab: {fileID: 1026222739917526287, guid: 7f98c8176bfca7347b11006aac2c90ce, type: 3}
   objectContainer: {fileID: 922164829}
   pathCreator: {fileID: 1073702041}
   obstacleSpawnSpeed: 2

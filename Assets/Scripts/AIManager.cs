@@ -10,7 +10,7 @@ public class AIManager : MonoBehaviour
     private PathCreator pathCreator;
     private Animator animator;
     public EndOfPathInstruction endOfPathInstruction;
-    public float speed = 3;
+    public float forwardSpeed = 5;
     float distanceTravelled;
     public float lanePosition;
     private float spacing = 2.5f; // Distance between each spawned object
@@ -36,11 +36,12 @@ public class AIManager : MonoBehaviour
         endOfPathInstruction = EndOfPathInstruction.Stop;
     }
 
+
     void Update()
     {
         /*if (pathCreator != null)
          {
-             distanceTravelled += speed * Time.deltaTime;
+             distanceTravelled += forwardSpeed * Time.deltaTime;
              transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
              transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
          }*/
@@ -51,7 +52,7 @@ public class AIManager : MonoBehaviour
             {
                 RunAnimation();
 
-                distanceTravelled += speed * Time.deltaTime;
+                distanceTravelled += forwardSpeed * Time.deltaTime;
                 Vector3 positionOnPath = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
 
                 // Calculate the normalized tangent and normal vectors of the path
@@ -78,12 +79,20 @@ public class AIManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Finish" && pv.IsMine)
+        if (pv.IsMine)
         {
-            speed = 0;
-            isFinished = true;
-            JumpAnimation();
-        }
+            if (other.tag == "Finish")
+            {
+                forwardSpeed = 0;
+                isFinished = true;
+                JumpAnimation();
+            }
+
+            if (other.tag == "Obstacle")
+            {
+                pv.RPC("RPC_SlowDown", RpcTarget.All, null);
+            }
+        } 
     }
 
     private void OnTriggerExit(Collider other)
@@ -118,8 +127,21 @@ public class AIManager : MonoBehaviour
 
     IEnumerator SpeedUp()
     {
-        speed = 10;
+        forwardSpeed = 10;
         yield return new WaitForSeconds(3f);
-        speed = 3;
+        forwardSpeed = 5;
+    }
+
+    [PunRPC]
+    public void RPC_SlowDown()
+    {
+        StartCoroutine(SlowDown());
+    }
+
+    IEnumerator SlowDown()
+    {
+        forwardSpeed = 2;
+        yield return new WaitForSeconds(3f);
+        forwardSpeed = 5;
     }
 }

@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     private PathCreator pathCreator;
     private PhotonView pv;
     private float rotateSpeed = 100f;
-    private float forwardSpeed = 20f;
+    private float forwardSpeed = 10f;
     Vector3 direction, addedPos;
     private bool isFinished = false;
 
@@ -55,12 +55,20 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Finish" && pv.IsMine)
+        if (pv.IsMine)
         {
-            fixedJoystick.gameObject.SetActive(false);
-            forwardSpeed = 0;
-            isFinished = true;
-            JumpAnimation();
+            if (other.tag == "Finish")
+            {
+                fixedJoystick.gameObject.SetActive(false);
+                forwardSpeed = 0;
+                isFinished = true;
+                JumpAnimation();
+            }
+
+            if(other.tag == "Obstacle")
+            {
+                pv.RPC("RPC_SlowDown", RpcTarget.All, null);
+            }
         }
     }
 
@@ -111,8 +119,21 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator SpeedUp()
     {
-        forwardSpeed = 10;
-        yield return new WaitForSeconds(3f);
         forwardSpeed = 20;
+        yield return new WaitForSeconds(3f);
+        forwardSpeed = 10;
+    }
+
+    [PunRPC]
+    public void RPC_SlowDown()
+    {
+        StartCoroutine(SlowDown());
+    }
+
+    IEnumerator SlowDown()
+    {
+        forwardSpeed = 5;
+        yield return new WaitForSeconds(3f);
+        forwardSpeed = 10;
     }
 }
