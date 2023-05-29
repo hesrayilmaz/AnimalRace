@@ -82,9 +82,10 @@ public class ObjectSpawner : MonoBehaviour
         for(int i=0; i<randomObstacleCount; i++)
         {
             int randomPosition = Random.Range(0, spawnPositions.Length);
+            Quaternion rotation = Quaternion.LookRotation(tangent, Vector3.up);
             GameObject spawnedObj = PhotonNetwork.Instantiate(obstaclePrefab.name, 
-                new Vector3(spawnPositions[randomPosition].x, obstaclePrefab.transform.position.y, spawnPositions[randomPosition].z), 
-                Quaternion.identity);
+                new Vector3(spawnPositions[randomPosition].x, obstaclePrefab.transform.position.y, spawnPositions[randomPosition].z),
+                rotation);
         }
 
         spawnPoint += spawnPoint*2;

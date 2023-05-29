@@ -37,7 +37,7 @@ public class AIManager : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         /*if (pathCreator != null)
          {
@@ -79,8 +79,6 @@ public class AIManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (pv.IsMine)
-        {
             if (other.tag == "Finish")
             {
                 forwardSpeed = 0;
@@ -92,7 +90,6 @@ public class AIManager : MonoBehaviour
             {
                 pv.RPC("RPC_SlowDown", RpcTarget.All, null);
             }
-        } 
     }
 
     private void OnTriggerExit(Collider other)

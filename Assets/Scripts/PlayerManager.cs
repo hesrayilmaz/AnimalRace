@@ -12,7 +12,8 @@ public class PlayerManager : MonoBehaviour
     private PathCreator pathCreator;
     private PhotonView pv;
     private float rotateSpeed = 100f;
-    private float forwardSpeed = 10f;
+    private float forwardSpeed;
+    private float initialSpeed = 6f;
     Vector3 direction, addedPos;
     private bool isFinished = false;
 
@@ -24,6 +25,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        forwardSpeed = initialSpeed;
         pv = GetComponent<PhotonView>();
         animator = GetComponent<Animator>();
         pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
@@ -119,9 +121,9 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator SpeedUp()
     {
-        forwardSpeed = 20;
+        forwardSpeed = initialSpeed*2;
         yield return new WaitForSeconds(3f);
-        forwardSpeed = 10;
+        forwardSpeed = initialSpeed;
     }
 
     [PunRPC]
@@ -132,8 +134,8 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator SlowDown()
     {
-        forwardSpeed = 5;
+        forwardSpeed = initialSpeed/2;
         yield return new WaitForSeconds(3f);
-        forwardSpeed = 10;
+        forwardSpeed = initialSpeed;
     }
 }
