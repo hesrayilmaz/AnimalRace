@@ -28,9 +28,13 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField] private CoinManager coinManager;
 
-    void Start()
+    private void Awake()
     {
         characters = GameObject.Find("Characters").GetComponent<Characters>();
+    }
+
+    void Start()
+    {
         charactersLength = characters.GetCharacters().Length;
 
         //ResetToDefault();

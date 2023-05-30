@@ -13,23 +13,27 @@ public class PlayerManager : MonoBehaviour
     private PhotonView pv;
     private float rotateSpeed = 100f;
     private float forwardSpeed;
-    private float initialSpeed = 6f;
+    private float initialSpeed = 10f;
     Vector3 direction, addedPos;
     private bool isFinished = false;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        pv = GetComponent<PhotonView>();
+        animator = GetComponent<Animator>();
+        pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
+        fixedJoystick = GameObject.Find("Canvas").transform.Find("FixedJoystick").GetComponent<FixedJoystick>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         forwardSpeed = initialSpeed;
-        pv = GetComponent<PhotonView>();
-        animator = GetComponent<Animator>();
-        pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
-        fixedJoystick = GameObject.Find("Canvas").transform.Find("FixedJoystick").GetComponent<FixedJoystick>();
+        if (pv.IsMine)
+        {
+            AudioManager.instance.PlayRaceAudio();
+        }
     }
 
 
@@ -65,6 +69,7 @@ public class PlayerManager : MonoBehaviour
                 forwardSpeed = 0;
                 isFinished = true;
                 JumpAnimation();
+                AudioManager.instance.PlayLevelEndAudio();
             }
 
             if(other.tag == "Obstacle")

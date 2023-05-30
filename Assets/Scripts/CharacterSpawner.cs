@@ -18,10 +18,16 @@ public class CharacterSpawner : MonoBehaviour
     [SerializeField] private PathCreator pathCreator;
     private float spacing = 2.5f; // Distance between each spawned character
 
+
+    private void Awake()
+    {
+        characters = GameObject.Find("Characters").GetComponent<Characters>();
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
-        characters = GameObject.Find("Characters").GetComponent<Characters>();
         spawnPositions = new List<Vector3>();
         //playerCharacter = FindCharacterByName(PlayerPrefs.GetString("SelectedCharacter", characters.GetCharacter(0).characterName)).characterPrefab;
         playerCharacterName = "Player"+PlayerPrefs.GetString("SelectedCharacter", characters.GetCharacter(0).characterName);

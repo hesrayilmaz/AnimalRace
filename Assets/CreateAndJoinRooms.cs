@@ -82,7 +82,6 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 
         PlayerPrefs.SetInt("PlayerCount", PhotonNetwork.PlayerList.Length);
         Debug.Log("player count: " + PhotonNetwork.PlayerList.Length);
-   
         SceneManager.LoadScene("Level1");
     }
 

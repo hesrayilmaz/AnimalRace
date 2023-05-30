@@ -20,6 +20,9 @@ public class AIManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        pv = GetComponent<PhotonView>();
+        animator = transform.GetComponent<Animator>();
+        pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
     }
 
     void Start() 
@@ -30,9 +33,6 @@ public class AIManager : MonoBehaviour
             pathCreator.pathUpdated += OnPathChanged;
         }
 
-        pv = GetComponent<PhotonView>();
-        animator = transform.GetComponent<Animator>();
-        pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
         endOfPathInstruction = EndOfPathInstruction.Stop;
     }
 

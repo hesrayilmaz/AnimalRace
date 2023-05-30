@@ -11,6 +11,7 @@ public class CameraMovement : MonoBehaviour
     Vector3 desiredPosition, smoothedPosition;
     Quaternion desiredrotation, smoothedrotation;
 
+
     // Start is called before the first frame update
     void Start()
     {
