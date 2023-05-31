@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public void StartGame()
     {
@@ -16,8 +16,16 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    /*private void OnApplicationQuit()
+    public void ExitRoom()
     {
         PhotonNetwork.LeaveRoom();
-    }*/
+        SpawnPointManager.instance.ResetLists();
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public override void OnLeftRoom()
+    {
+        PhotonNetwork.Disconnect();
+    }
+
 }

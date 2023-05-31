@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     private Animator animator;
     private PathCreator pathCreator;
     private PhotonView pv;
+    private string playerName;
     private float rotateSpeed = 100f;
     private float forwardSpeed;
     private float initialSpeed = 10f;
@@ -30,6 +31,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         forwardSpeed = initialSpeed;
+        playerName = "Player" + PlayerPrefs.GetString("SelectedCharacter", Characters.instance.GetCharacter(0).characterName);
         if (pv.IsMine)
         {
             AudioManager.instance.PlayRaceAudio();
@@ -116,6 +118,18 @@ public class PlayerManager : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), Time.fixedDeltaTime * rotateSpeed);
             }
         }
+    }
+
+
+    public string GetPlayerName()
+    {
+        return playerName;
+    }
+
+    [PunRPC]
+    public void RPC_DestroyPlayer()
+    {
+        PhotonNetwork.Destroy(gameObject);
     }
 
     [PunRPC]

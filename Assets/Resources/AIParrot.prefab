@@ -929,5 +929,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endOfPathInstruction: 0
-  speed: 5
+  forwardSpeed: 5
   lanePosition: 0

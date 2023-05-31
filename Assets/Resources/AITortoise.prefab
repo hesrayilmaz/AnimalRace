@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endOfPathInstruction: 0
-  speed: 5
+  forwardSpeed: 5
   lanePosition: 0
 --- !u!1 &6606228269740665293
 GameObject:
