@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
         SpawnPointManager.instance.ResetLists();
+        AudioManager.instance.PlayBackgroundAudio();
         SceneManager.LoadScene("MainMenu");
     }
 
