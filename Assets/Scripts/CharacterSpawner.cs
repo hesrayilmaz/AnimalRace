@@ -38,7 +38,6 @@ public class CharacterSpawner : MonoBehaviour
     private void SpawnCharacters()
     {
         GameObject player = PhotonNetwork.Instantiate(playerCharacterName, SpawnPointManager.instance.GetRandomPosition(), Quaternion.identity);
-        ScoreboardManager.instance.playerList.Add(player);
     }
 
     private void SpawnAI()
@@ -49,7 +48,6 @@ public class CharacterSpawner : MonoBehaviour
             AICharacterName = "AI" + Characters.instance.GetCharacter(randomCharacter).characterName;
             GameObject player = PhotonNetwork.Instantiate(AICharacterName, SpawnPointManager.instance.GetRandomPosition(), Quaternion.identity);
             player.GetComponent<AIManager>().lanePosition = (1.5f) - SpawnPointManager.instance.GetRandomIndex();
-            ScoreboardManager.instance.playerList.Add(player);
         }
     }
 }

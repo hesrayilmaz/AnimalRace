@@ -10,12 +10,13 @@ public class AIManager : MonoBehaviour
     private PathCreator pathCreator;
     private Animator animator;
     public EndOfPathInstruction endOfPathInstruction;
-    public float forwardSpeed = 5;
+    public float forwardSpeed = 10;
     float distanceTravelled;
     public float lanePosition;
     private float spacing = 2.5f; // Distance between each spawned object
     private PhotonView pv;
     private bool isFinished = false;
+    private string nickName;
 
     private void Awake()
     {
@@ -27,6 +28,11 @@ public class AIManager : MonoBehaviour
 
     void Start() 
     {
+        nickName = "PLAYER" + Random.Range(1, 100);
+        Debug.Log("ai name: " + nickName);
+        ScoreboardManager.instance.playerList.Add(gameObject);
+        ScoreboardManager.instance.nickNameList.Add(nickName);
+
         if (pathCreator != null)
         {
             // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
@@ -39,13 +45,6 @@ public class AIManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        /*if (pathCreator != null)
-         {
-             distanceTravelled += forwardSpeed * Time.deltaTime;
-             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
-             transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
-         }*/
-
         if (pv.IsMine)
         {
             if (pathCreator != null)
@@ -68,10 +67,6 @@ public class AIManager : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(tangent, Vector3.up);
             }
 
-            /*if (isFinished)
-            {
-                transform.Rotate(Vector3.up * 20 * Time.deltaTime, Space.World);
-            }*/
         }
        
         
@@ -124,9 +119,9 @@ public class AIManager : MonoBehaviour
 
     IEnumerator SpeedUp()
     {
-        forwardSpeed = 10;
+        forwardSpeed = 20;
         yield return new WaitForSeconds(3f);
-        forwardSpeed = 5;
+        forwardSpeed = 10;
     }
 
     [PunRPC]
@@ -137,8 +132,8 @@ public class AIManager : MonoBehaviour
 
     IEnumerator SlowDown()
     {
-        forwardSpeed = 2;
-        yield return new WaitForSeconds(3f);
         forwardSpeed = 5;
+        yield return new WaitForSeconds(3f);
+        forwardSpeed = 10;
     }
 }

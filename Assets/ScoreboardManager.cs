@@ -3,55 +3,95 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using PathCreation;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class ScoreboardManager : MonoBehaviour
 {
     public static ScoreboardManager instance;
 
-    public List<GameObject> playerList;
-    [SerializeField] private string[] playerNames;
-    [SerializeField] private TextMeshProUGUI[] playerNameTexts;
-    [SerializeField] private Transform[] playerOrders;
+    [SerializeField] private PhotonView myPhotonView;
+    [SerializeField] private PathCreator pathCreator;
 
-    public PathCreator pathCreator;
-    private float[] distanceTravelledArray = new float[4];
+    [SerializeField] private List<Transform> orderTransforms;
+    public List<string> nickNameList = new List<string>();
+    public List<GameObject> playerList = new List<GameObject>();
+    public List<float> distanceList = new List<float>();
+
 
     private void Awake()
     {
         instance = this;
+        myPhotonView = GetComponent<PhotonView>();
     }
 
     private void Update()
     {
-        for (int i = 0; i < 4; i++)
+        if (PhotonNetwork.IsMasterClient)
         {
-            // Get the distance travelled for each player based on their position
-            Vector3 playerPosition = GetPlayerPosition(i);
-            distanceTravelledArray[i] = pathCreator.path.GetClosestDistanceAlongPath(playerPosition);
+            myPhotonView.RPC("SetPlayerAndDistanceList", RpcTarget.All, null);
+            myPhotonView.RPC("SortDistanceList", RpcTarget.All, null);
+            myPhotonView.RPC("UpdateScoreboard", RpcTarget.All, null);
+        } 
+    }
+
+    [PunRPC]
+    private void SetPlayerAndDistanceList()
+    {
+        foreach(string name in nickNameList)
+        {
+            Debug.Log(name);
         }
-
-        // Compare and reorganize the distanceTravelledArray in descending order
-        SortDistanceTravelledArrayDescending();
-
-        // Use the sorted array as needed
-        for (int i = 0; i < 4; i++)
+        distanceList = new List<float>();
+        foreach (GameObject player in playerList)
         {
-            Debug.Log("Player " + (i + 1) + " Distance: " + distanceTravelledArray[i]);
+            float distance = pathCreator.path.GetClosestDistanceAlongPath(player.transform.position);
+            distanceList.Add(distance);
         }
     }
 
-    private Vector3 GetPlayerPosition(int playerIndex)
+    [PunRPC]
+    private void SortDistanceList()
     {
-        // Implement your logic to get the position of the player at the given index
-        // You can use PhotonPlayerList or any other method to retrieve player positions
-        // Replace this with your actual implementation
-        return Vector3.zero;
+        float tempDist = 0;
+        string tempName = "";
+        GameObject tempPlayer = null;
+
+        for (int i = 0; i < distanceList.Count; i++)
+        {
+            for (int j = i + 1; j < distanceList.Count; j++)
+            {
+                if (distanceList[i] < distanceList[j]-0.1f)
+                {
+                    tempDist = distanceList[i];
+                    distanceList[i] = distanceList[j];
+                    distanceList[j] = tempDist;
+
+                    tempName = nickNameList[i];
+                    nickNameList[i] = nickNameList[j];
+                    nickNameList[j] = tempName;
+
+                    tempPlayer = playerList[i];
+                    playerList[i] = playerList[j];
+                    playerList[j] = tempPlayer;
+                }
+            }
+        }
     }
 
-    private void SortDistanceTravelledArrayDescending()
+    [PunRPC]
+    private void UpdateScoreboard()
     {
-        // Sort the distanceTravelledArray in descending order
-        System.Array.Sort(distanceTravelledArray, (a, b) => -a.CompareTo(b));
+        Debug.Log("nickNameList.Count: " + nickNameList.Count);
+        for (int i = 0; i < nickNameList.Count; i++)
+        {
+            Debug.Log("nickNameList: " + nickNameList[i]);
+        }
+
+        for (int i = 0; i < orderTransforms.Count; i++)
+        {
+            orderTransforms[i].parent.Find("PlayerName").GetComponent<TextMeshProUGUI>().text = nickNameList[i];
+        }
     }
 
 }

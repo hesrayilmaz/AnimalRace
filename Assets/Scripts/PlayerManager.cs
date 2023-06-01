@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
     private string playerName;
     private float rotateSpeed = 100f;
     private float forwardSpeed;
-    private float initialSpeed = 10f;
+    private float initialSpeed = 8f;
     Vector3 direction, addedPos;
     private bool isFinished = false;
 
@@ -36,6 +36,10 @@ public class PlayerManager : MonoBehaviour
         if (pv.IsMine)
         {
             forwardSpeed = initialSpeed;
+            PhotonNetwork.LocalPlayer.NickName = "PLAYER" + UnityEngine.Random.Range(1, 100);
+            Debug.Log("Nickname: " + PhotonNetwork.LocalPlayer.NickName);
+            ScoreboardManager.instance.playerList.Add(gameObject);
+            ScoreboardManager.instance.nickNameList.Add(PhotonNetwork.LocalPlayer.NickName);
             playerName = "Player" + PlayerPrefs.GetString("SelectedCharacter", Characters.instance.GetCharacter(0).characterName);
             playerNickNameText.text = pv.Owner.NickName;
             AudioManager.instance.PlayRaceAudio();
@@ -56,11 +60,6 @@ public class PlayerManager : MonoBehaviour
             {
                 IdleAnimation();
             }
-
-            /*if (isFinished)
-            {
-                transform.Rotate(Vector3.up * 20 * Time.deltaTime, Space.World);
-            }*/
         }
         
     }

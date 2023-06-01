@@ -13,7 +13,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     private bool isGameStarted = false;
     [SerializeField] private TextMeshProUGUI countdown;
     private float timer;
-    private float maxWaitTime = 5f;
+    private float maxWaitTime = 1f;
     private int playerCount;
     [SerializeField] private PhotonView myPhotonView;
 
@@ -83,7 +83,6 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.IsOpen = false;
 
         PlayerPrefs.SetInt("PlayerCount", PhotonNetwork.PlayerList.Length);
-        Debug.Log("PhotonNetwork.CurrentRoom.Name " + PhotonNetwork.CurrentRoom.Name);
 
         if(PhotonNetwork.CurrentRoom.Name == "Level1")
             PhotonNetwork.LoadLevel("Level1");
@@ -95,9 +94,6 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("joined room");
-        
-        PhotonNetwork.LocalPlayer.NickName = "PLAYER" + UnityEngine.Random.Range(1, 100);
-        Debug.Log("Nickname: " + PhotonNetwork.LocalPlayer.NickName);
 
         PlayerCountUpdate();
 
@@ -121,12 +117,10 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
         float randomNumber = UnityEngine.Random.Range(0f, 1f);
         if (randomNumber < 0.5f)
         {
-            Debug.Log(randomNumber);
             PhotonNetwork.JoinOrCreateRoom("Level1", roomOptions1, TypedLobby.Default);
         }
         else
         {
-            Debug.Log(randomNumber);
             PhotonNetwork.JoinOrCreateRoom("Level2", roomOptions2, TypedLobby.Default);
         }
     }
