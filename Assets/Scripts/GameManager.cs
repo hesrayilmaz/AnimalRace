@@ -6,6 +6,8 @@ using Photon.Pun;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private GameObject mainMenuButton;
+
     public void StartGame()
     {
         SceneManager.LoadScene("Loading");
@@ -14,6 +16,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void LoadSelectedScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void ShowExitButton()
+    {
+        mainMenuButton.SetActive(true);
     }
 
     public void ExitRoom()

@@ -22,7 +22,6 @@ public class ScoreboardManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        myPhotonView = GetComponent<PhotonView>();
     }
 
     private void Update()

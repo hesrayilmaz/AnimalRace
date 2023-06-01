@@ -8,6 +8,7 @@ using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
+    private GameManager gameManager;
     private FixedJoystick fixedJoystick;
     private Animator animator;
     private PathCreator pathCreator;
@@ -23,6 +24,7 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         pv = GetComponent<PhotonView>();
         animator = GetComponent<Animator>();
         pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
@@ -75,6 +77,7 @@ public class PlayerManager : MonoBehaviour
                 isFinished = true;
                 JumpAnimation();
                 AudioManager.instance.PlayLevelEndAudio();
+                gameManager.ShowExitButton();
             }
 
             if(other.tag == "Obstacle")
