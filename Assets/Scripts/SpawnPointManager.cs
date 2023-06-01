@@ -28,7 +28,7 @@ public class SpawnPointManager : MonoBehaviourPunCallbacks
     {
         availableIndices = playerCustomProp[AvailableIndicesKey] as List<int>;
 
-        if (spawnPositions == null || availableIndices.Count == null) 
+        if (spawnPositions == null || availableIndices == null) 
         {
             SetSpawnPositions();
             playerCustomProp[AvailableIndicesKey] = availableIndices;
@@ -65,10 +65,6 @@ public class SpawnPointManager : MonoBehaviourPunCallbacks
         randomIndex = availableIndices[Random.Range(0, availableIndices.Count)];
         Debug.Log("randomIndex " + randomIndex);
         availableIndices.Remove(randomIndex);
-        foreach (Vector3 idx in spawnPositions)
-        {
-            Debug.Log(idx);
-        }
 
         playerCustomProp[AvailableIndicesKey] = availableIndices;
 

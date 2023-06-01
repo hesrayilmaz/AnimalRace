@@ -5,12 +5,13 @@ using UnityEngine;
 using PathCreation;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 
 public class CharacterSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] AIPrefabs;
     private string playerCharacterName;
     private string AICharacterName;
+    private string playerNickName;
     private int playerCount;
     private int AICount;
     private int characterCountInRace = 4;
@@ -36,7 +37,8 @@ public class CharacterSpawner : MonoBehaviour
 
     private void SpawnCharacters()
     {
-        PhotonNetwork.Instantiate(playerCharacterName, SpawnPointManager.instance.GetRandomPosition(), Quaternion.identity);
+        GameObject player = PhotonNetwork.Instantiate(playerCharacterName, SpawnPointManager.instance.GetRandomPosition(), Quaternion.identity);
+        ScoreboardManager.instance.playerList.Add(player);
     }
 
     private void SpawnAI()
@@ -45,8 +47,9 @@ public class CharacterSpawner : MonoBehaviour
         {
             int randomCharacter = UnityEngine.Random.Range(0, characterCountInShop);
             AICharacterName = "AI" + Characters.instance.GetCharacter(randomCharacter).characterName;
-            GameObject spawnedObj = PhotonNetwork.Instantiate(AICharacterName, SpawnPointManager.instance.GetRandomPosition(), Quaternion.identity);
-            spawnedObj.GetComponent<AIManager>().lanePosition = (1.5f) - SpawnPointManager.instance.GetRandomIndex();
+            GameObject player = PhotonNetwork.Instantiate(AICharacterName, SpawnPointManager.instance.GetRandomPosition(), Quaternion.identity);
+            player.GetComponent<AIManager>().lanePosition = (1.5f) - SpawnPointManager.instance.GetRandomIndex();
+            ScoreboardManager.instance.playerList.Add(player);
         }
     }
 }

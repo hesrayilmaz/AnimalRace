@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
 using Photon.Pun;
+using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerManager : MonoBehaviour
     private Animator animator;
     private PathCreator pathCreator;
     private PhotonView pv;
+    private TextMeshProUGUI playerNickNameText;
     private string playerName;
     private float rotateSpeed = 100f;
     private float forwardSpeed;
@@ -25,15 +27,17 @@ public class PlayerManager : MonoBehaviour
         animator = GetComponent<Animator>();
         pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
         fixedJoystick = GameObject.Find("Canvas").transform.Find("FixedJoystick").GetComponent<FixedJoystick>();
+        playerNickNameText = GameObject.Find("Canvas").transform.Find("PlayerNickName").GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        forwardSpeed = initialSpeed;
-        playerName = "Player" + PlayerPrefs.GetString("SelectedCharacter", Characters.instance.GetCharacter(0).characterName);
         if (pv.IsMine)
         {
+            forwardSpeed = initialSpeed;
+            playerName = "Player" + PlayerPrefs.GetString("SelectedCharacter", Characters.instance.GetCharacter(0).characterName);
+            playerNickNameText.text = pv.Owner.NickName;
             AudioManager.instance.PlayRaceAudio();
         }
     }

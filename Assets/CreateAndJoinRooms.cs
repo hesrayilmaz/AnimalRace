@@ -36,7 +36,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         PlayerCountUpdate();
-
+        
         if (PhotonNetwork.IsMasterClient)
         {
             myPhotonView.RPC("RPC_SendTimer", RpcTarget.All, timer);
@@ -95,6 +95,10 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("joined room");
+        
+        PhotonNetwork.LocalPlayer.NickName = "PLAYER" + UnityEngine.Random.Range(1, 100);
+        Debug.Log("Nickname: " + PhotonNetwork.LocalPlayer.NickName);
+
         PlayerCountUpdate();
 
         if (PhotonNetwork.IsMasterClient)
