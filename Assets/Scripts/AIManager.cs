@@ -10,7 +10,8 @@ public class AIManager : MonoBehaviour
     private PathCreator pathCreator;
     private Animator animator;
     public EndOfPathInstruction endOfPathInstruction;
-    public float forwardSpeed = 10;
+    public int initialSpeed;
+    private float forwardSpeed;
     float distanceTravelled;
     public float lanePosition;
     private float spacing = 2.5f; // Distance between each spawned object
@@ -28,6 +29,8 @@ public class AIManager : MonoBehaviour
 
     void Start() 
     {
+        initialSpeed = Random.Range(10, 12);
+        forwardSpeed = initialSpeed;
         nickName = "PLAYER" + Random.Range(1, 100);
         Debug.Log("ai name: " + nickName);
         ScoreboardManager.instance.playerList.Add(gameObject);
@@ -119,9 +122,9 @@ public class AIManager : MonoBehaviour
 
     IEnumerator SpeedUp()
     {
-        forwardSpeed = 20;
+        forwardSpeed = initialSpeed*2;
         yield return new WaitForSeconds(3f);
-        forwardSpeed = 10;
+        forwardSpeed = initialSpeed;
     }
 
     [PunRPC]
@@ -132,8 +135,8 @@ public class AIManager : MonoBehaviour
 
     IEnumerator SlowDown()
     {
-        forwardSpeed = 5;
+        forwardSpeed = initialSpeed/2;
         yield return new WaitForSeconds(3f);
-        forwardSpeed = 10;
+        forwardSpeed = initialSpeed;
     }
 }

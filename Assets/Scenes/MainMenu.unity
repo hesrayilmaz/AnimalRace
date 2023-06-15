@@ -687,6 +687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d21662b9cbd443458d7043b6b8f10ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuButton: {fileID: 0}
 --- !u!4 &972592222
 Transform:
   m_ObjectHideFlags: 0
@@ -1726,11 +1727,6 @@ MonoBehaviour:
     isPurchased: false
     isSelected: false
     price: 80
-  - characterName: Hyena
-    characterPrefab: {fileID: 8140625974582469117, guid: 08987c33bfc529e4e84b21302fc13a69, type: 3}
-    isPurchased: false
-    isSelected: false
-    price: 90
   - characterName: Mouse
     characterPrefab: {fileID: 8858668344987094261, guid: e72d6f7fecacc754bb7cc0c101a8ea40, type: 3}
     isPurchased: false

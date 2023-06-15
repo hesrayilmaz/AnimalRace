@@ -36,7 +36,7 @@ public class ShopManager : MonoBehaviour
     void Start()
     {
         charactersLength = characters.GetCharacters().Length;
-
+        
         //ResetToDefault();
 
         //Set first character as purchased as default 
@@ -59,6 +59,8 @@ public class ShopManager : MonoBehaviour
             if (chr.isSelected == "true")
                 selectedCharacter = chr;
         }
+
+        PlayerPrefs.SetString("SelectedCharacter", selectedCharacter.characterName);
 
         //currentCharacterIndex = PlayerPrefs.GetInt(blockPlayerPrefs, currentCharacterIndex);
         currentCharacter = characters.GetCharacter(currentCharacterIndex);
@@ -214,6 +216,7 @@ public class ShopManager : MonoBehaviour
     //If settings should be reset
     private void ResetToDefault()
     {
+        PlayerPrefs.SetString(characters.GetCharacter(0).characterName + "Selected", "true");
         for (int index = 1; index < charactersLength; index++)
         {
             PlayerPrefs.SetString(characters.GetCharacter(index).characterName + "Purchased", "false");

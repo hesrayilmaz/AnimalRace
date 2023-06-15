@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
     private string playerName;
     private float rotateSpeed = 100f;
     private float forwardSpeed;
-    private float initialSpeed = 8f;
+    private float initialSpeed = 9f;
     Vector3 direction, addedPos;
     private bool isFinished = false;
 
@@ -147,7 +147,7 @@ public class PlayerManager : MonoBehaviour
     IEnumerator SpeedUp()
     {
         forwardSpeed = initialSpeed*2;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2.5f);
         forwardSpeed = initialSpeed;
     }
 
@@ -160,7 +160,7 @@ public class PlayerManager : MonoBehaviour
     IEnumerator SlowDown()
     {
         forwardSpeed = initialSpeed/2;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2.5f);
         forwardSpeed = initialSpeed;
     }
 }

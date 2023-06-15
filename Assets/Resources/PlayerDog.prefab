@@ -458,7 +458,7 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1693816919888243770}
-  - screenRelativeHeight: 0.05
+  - screenRelativeHeight: 0
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1693816919444554685}
@@ -525,8 +525,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d75bc1013961c3439c33d1b7c966d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 100
-  forwardSpeed: 5
 --- !u!114 &4081974591258764466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -581,7 +579,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
+  m_SynchronizeParameters:
+  - Type: 9
+    SynchronizeType: 0
+    Name: Idle
+  - Type: 9
+    SynchronizeType: 0
+    Name: Run
+  - Type: 9
+    SynchronizeType: 0
+    Name: Jump
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
