@@ -17,15 +17,9 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     private int playerCount;
     [SerializeField] private PhotonView myPhotonView;
 
-    public override void OnConnectedToMaster()
-    {
-        PhotonNetwork.AutomaticallySyncScene = true;
-        PhotonNetwork.JoinLobby();
-    }
 
-    public override void OnJoinedLobby()
+    private void Start()
     {
-        Debug.Log("joined to lobby");
         if (PhotonNetwork.IsMasterClient)
         {
             JoinRoom();

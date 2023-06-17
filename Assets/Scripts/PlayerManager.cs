@@ -38,8 +38,6 @@ public class PlayerManager : MonoBehaviour
         if (pv.IsMine)
         {
             forwardSpeed = initialSpeed;
-            PhotonNetwork.LocalPlayer.NickName = "PLAYER" + UnityEngine.Random.Range(1, 100);
-            Debug.Log("Nickname: " + PhotonNetwork.LocalPlayer.NickName);
             ScoreboardManager.instance.playerList.Add(gameObject);
             ScoreboardManager.instance.nickNameList.Add(PhotonNetwork.LocalPlayer.NickName);
             playerName = "Player" + PlayerPrefs.GetString("SelectedCharacter", Characters.instance.GetCharacter(0).characterName);
