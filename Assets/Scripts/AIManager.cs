@@ -17,7 +17,7 @@ public class AIManager : MonoBehaviour
     private float spacing = 2.5f; // Distance between each spawned object
     private PhotonView pv;
     private bool isFinished = false;
-    private string nickName;
+    public string nickName;
 
     private void Awake()
     {
@@ -31,10 +31,7 @@ public class AIManager : MonoBehaviour
     {
         initialSpeed = Random.Range(10, 12);
         forwardSpeed = initialSpeed;
-        nickName = "PLAYER" + Random.Range(1, 100);
-        Debug.Log("ai name: " + nickName);
-        ScoreboardManager.instance.playerList.Add(gameObject);
-        ScoreboardManager.instance.nickNameList.Add(nickName);
+        nickName = "Player" + Random.Range(1, 100);
 
         if (pathCreator != null)
         {

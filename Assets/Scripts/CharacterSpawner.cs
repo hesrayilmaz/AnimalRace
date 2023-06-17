@@ -16,7 +16,8 @@ public class CharacterSpawner : MonoBehaviour
     private int AICount;
     private int characterCountInRace = 4;
     private int characterCountInShop;
- 
+    private Transform playersTransform;
+
 
     // Start is called before the first frame update
     void Start()

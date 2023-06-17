@@ -16,7 +16,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        playerNickNameText.text = "Player Name: "+ PlayerPrefs.GetString("NickName",string.Empty);
+        //PlayerPrefs.SetString("NickName", string.Empty);
+        playerNickName = PlayerPrefs.GetString("NickName", string.Empty);
+        PhotonNetwork.LocalPlayer.NickName = playerNickName;
+        playerNickNameText.text = "Player Name: "+ playerNickName;
     }
 
     public override void OnConnectedToMaster()
@@ -40,7 +43,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void SelectRandomNickName()
     {
-        playerNickName = "PLAYER" + Random.Range(1, 100);
+        playerNickName = "Player" + Random.Range(1, 100);
         SetNickNames();
     }
 

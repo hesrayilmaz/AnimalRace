@@ -20,6 +20,7 @@ public class PlayerManager : MonoBehaviour
     private float initialSpeed = 9f;
     Vector3 direction, addedPos;
     private bool isFinished = false;
+    public string nickName;
 
     private void Awake()
     {
@@ -38,10 +39,10 @@ public class PlayerManager : MonoBehaviour
         if (pv.IsMine)
         {
             forwardSpeed = initialSpeed;
-            ScoreboardManager.instance.playerList.Add(gameObject);
-            ScoreboardManager.instance.nickNameList.Add(PhotonNetwork.LocalPlayer.NickName);
             playerName = "Player" + PlayerPrefs.GetString("SelectedCharacter", Characters.instance.GetCharacter(0).characterName);
-            playerNickNameText.text = pv.Owner.NickName;
+            nickName = pv.Owner.NickName;
+            playerNickNameText.text = nickName; 
+            Debug.Log("player name: " + pv.Owner.NickName);
             AudioManager.instance.PlayRaceAudio();
         }
     }
