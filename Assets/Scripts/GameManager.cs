@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void ExitRoom()
     {
         PhotonNetwork.LeaveRoom();
-        SpawnPointManager.instance.ResetLists();
         AudioManager.instance.PlayBackgroundAudio();
         SceneManager.LoadScene("MainMenu");
     }

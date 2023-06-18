@@ -14,6 +14,8 @@ public class AIManager : MonoBehaviour
     private float forwardSpeed;
     float distanceTravelled;
     public float lanePosition;
+    private float targetLanePosition;
+    private float laneChangeSpeed = 1f;
     private float spacing = 2.5f; // Distance between each spawned object
     private PhotonView pv;
     private bool isFinished = false;
@@ -40,6 +42,8 @@ public class AIManager : MonoBehaviour
         }
 
         endOfPathInstruction = EndOfPathInstruction.Stop;
+        // Initialize the target lane position
+        targetLanePosition = lanePosition;
     }
 
 
@@ -58,6 +62,9 @@ public class AIManager : MonoBehaviour
                 Vector3 tangent = pathCreator.path.GetDirectionAtDistance(distanceTravelled);
                 Vector3 normal = new Vector3(-tangent.z, 0f, tangent.x).normalized;
 
+                // Calculate the new lane position using lerping
+                lanePosition = Mathf.Lerp(lanePosition, targetLanePosition, laneChangeSpeed * Time.deltaTime);
+
                 // Offset the initial object's position based on the normal vector
                 positionOnPath += -normal * spacing * lanePosition;
 
@@ -68,23 +75,38 @@ public class AIManager : MonoBehaviour
             }
 
         }
-       
-        
+          
+    }
+
+    public void ChangeLane(float newLanePosition)
+    {
+        // Set the target lane position for smooth transition
+        targetLanePosition = newLanePosition;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-            if (other.tag == "Finish")
-            {
-                forwardSpeed = 0;
-                isFinished = true;
-                JumpAnimation();
-            }
+        if (other.tag == "Finish")
+        {
+            forwardSpeed = 0;
+            isFinished = true;
+            JumpAnimation();
+        }
 
+        else 
+        {
             if (other.tag == "Obstacle")
             {
                 pv.RPC("RPC_SlowDown", RpcTarget.All, null);
             }
+
+            if (other.tag != "Ground")
+            {
+                int randomIndex = Random.Range(0, 4);
+                float newLanePosition = (1.5f) - randomIndex;
+                ChangeLane(newLanePosition);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
