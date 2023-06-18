@@ -2,6 +2,7 @@
 using PathCreation;
 using Photon.Pun;
 using System.Collections;
+using TMPro;
 
 // Moves along a path at constant speed.
 // Depending on the end of path instruction, will either loop, reverse, or stop at the end of the path.
@@ -18,6 +19,7 @@ public class AIManager : MonoBehaviour
     private float laneChangeSpeed = 1f;
     private float spacing = 2.5f; // Distance between each spawned object
     private PhotonView pv;
+    private TextMeshProUGUI nickNameText;
     private bool isFinished = false;
     public string nickName;
 
@@ -25,6 +27,7 @@ public class AIManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         pv = GetComponent<PhotonView>();
+        nickNameText = transform.Find("Canvas").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         animator = transform.GetComponent<Animator>();
         pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
     }
@@ -34,7 +37,7 @@ public class AIManager : MonoBehaviour
         initialSpeed = Random.Range(10, 12);
         forwardSpeed = initialSpeed;
         nickName = "Player" + Random.Range(1, 100);
-
+        nickNameText.text = nickName;
         if (pathCreator != null)
         {
             // Subscribed to the pathUpdated event so that we're notified if the path changes during the game

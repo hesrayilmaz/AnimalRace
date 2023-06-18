@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
     private Animator animator;
     private PathCreator pathCreator;
     private PhotonView pv;
-    private TextMeshProUGUI playerNickNameText;
+    private TextMeshProUGUI nickNameText;
     private string playerName;
     private float rotateSpeed = 100f;
     private float forwardSpeed;
@@ -30,7 +30,7 @@ public class PlayerManager : MonoBehaviour
         animator = GetComponent<Animator>();
         pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
         fixedJoystick = GameObject.Find("Canvas").transform.Find("FixedJoystick").GetComponent<FixedJoystick>();
-        playerNickNameText = GameObject.Find("Canvas").transform.Find("PlayerNickName").GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        nickNameText = transform.Find("Canvas").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     // Start is called before the first frame update
@@ -41,7 +41,8 @@ public class PlayerManager : MonoBehaviour
             forwardSpeed = initialSpeed;
             playerName = "Player" + PlayerPrefs.GetString("SelectedCharacter", Characters.instance.GetCharacter(0).characterName);
             nickName = pv.Owner.NickName;
-            playerNickNameText.text = nickName; 
+            nickNameText.text = nickName;
+            nickNameText.color = new Color32(255, 0, 0, 255);
             Debug.Log("player name: " + pv.Owner.NickName);
             AudioManager.instance.PlayRaceAudio();
         }
