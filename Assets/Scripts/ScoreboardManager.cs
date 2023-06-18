@@ -64,10 +64,10 @@ public class ScoreboardManager : MonoBehaviour
             GameObject player = players[i];
             playerList[i] = player;
             playerIDList[i] = player.GetComponent<PhotonView>().ViewID;
-            Debug.Log("playerList: " + player.name);
-            Debug.Log("playerID: " + playerIDList[i]);
+            //Debug.Log("playerList: " + player.name);
+            //Debug.Log("playerID: " + playerIDList[i]);
             nickName = player.GetComponent<PhotonView>().Owner.NickName;
-            Debug.Log("iffffffffff " + nickName);
+            //Debug.Log("player nickname: " + nickName);
             nickNameList[i] = nickName;
         }
         for (int i = players.Length, j = 0; i < players.Length + AIplayers.Length; i++, j++)
@@ -75,10 +75,10 @@ public class ScoreboardManager : MonoBehaviour
             GameObject player = AIplayers[j];
             playerList[i] = player;
             playerIDList[i] = player.GetComponent<PhotonView>().ViewID;
-            Debug.Log("playerList: " + player.name);
-            Debug.Log("playerID: " + playerIDList[i]);
+            //Debug.Log("playerList: " + player.name);
+            //Debug.Log("playerID: " + playerIDList[i]);
             nickName = player.GetComponent<AIManager>().nickName;
-            Debug.Log("elseeeeeee " + nickName);
+            //Debug.Log("ai nickname: " + nickName);
             if (nickName != string.Empty)
                 nickNameList[i] = nickName;
         }

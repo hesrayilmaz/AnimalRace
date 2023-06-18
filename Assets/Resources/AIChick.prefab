@@ -845,6 +845,7 @@ MonoBehaviour:
   endOfPathInstruction: 0
   initialSpeed: 0
   lanePosition: 0
+  nickName: 
 --- !u!1 &7465606655880892505
 GameObject:
   m_ObjectHideFlags: 0

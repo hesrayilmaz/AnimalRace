@@ -49,6 +49,8 @@ MonoBehaviour:
   - SortDistanceList
   - UpdateScoreboard
   - RPC_SendLists
+  - RPC_SendPositions
+  - RPC_RequestPositions
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
