@@ -78,10 +78,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 
         PlayerPrefs.SetInt("PlayerCount", PhotonNetwork.PlayerList.Length);
 
-        if(PhotonNetwork.CurrentRoom.Name == "Level1")
-            PhotonNetwork.LoadLevel("Level1");
-        else if (PhotonNetwork.CurrentRoom.Name == "Level2")
-            PhotonNetwork.LoadLevel("Level2");
+        PhotonNetwork.LoadLevel(PhotonNetwork.CurrentRoom.Name);
     }
 
 
@@ -108,14 +105,22 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
         //roomOptions2.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable { { "LevelName", "Level2" } };
         //roomOptions2.CustomRoomPropertiesForLobby = new string[] { "LevelName" };
 
+        RoomOptions roomOptions3 = new RoomOptions { MaxPlayers = 4, IsOpen = true, IsVisible = true };
+        //roomOptions2.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable { { "LevelName", "Level2" } };
+        //roomOptions2.CustomRoomPropertiesForLobby = new string[] { "LevelName" };
+
         float randomNumber = UnityEngine.Random.Range(0f, 1f);
-        if (randomNumber < 0.5f)
+        if (randomNumber < 0.35f)
         {
             PhotonNetwork.JoinOrCreateRoom("Level1", roomOptions1, TypedLobby.Default);
         }
-        else
+        else if (randomNumber < 0.7f)
         {
             PhotonNetwork.JoinOrCreateRoom("Level2", roomOptions2, TypedLobby.Default);
+        }
+        else
+        {
+            PhotonNetwork.JoinOrCreateRoom("Level3", roomOptions2, TypedLobby.Default);
         }
     }
 
