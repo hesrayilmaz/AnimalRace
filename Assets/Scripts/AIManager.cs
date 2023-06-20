@@ -11,8 +11,8 @@ public class AIManager : MonoBehaviour
     private PathCreator pathCreator;
     private Animator animator;
     public EndOfPathInstruction endOfPathInstruction;
-    public int initialSpeed;
-    private float forwardSpeed;
+    public int initialSpeed=0;
+    private float forwardSpeed=0;
     float distanceTravelled;
     public float lanePosition;
     private float targetLanePosition;
@@ -36,8 +36,6 @@ public class AIManager : MonoBehaviour
 
     void Start() 
     {
-        initialSpeed = Random.Range(10, 12);
-        forwardSpeed = initialSpeed;
         nickName = "Player" + Random.Range(1, 100);
         nickNameText.text = nickName;
         if (pathCreator != null)
@@ -51,6 +49,18 @@ public class AIManager : MonoBehaviour
         targetLanePosition = lanePosition;
     }
 
+    public void EnableMovement()
+    {
+        StartCoroutine(EnableMovementCoroutine());
+    }
+
+    IEnumerator EnableMovementCoroutine()
+    {
+        float randomWait = Random.Range(0.1f, 0.5f);
+        yield return new WaitForSeconds(randomWait);
+        initialSpeed = Random.Range(10, 12);
+        forwardSpeed = initialSpeed;
+    }
 
     void FixedUpdate()
     {
