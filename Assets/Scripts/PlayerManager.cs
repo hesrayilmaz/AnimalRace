@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour
     private PathCreator pathCreator;
     private PhotonView pv;
     private TextMeshProUGUI nickNameText;
+    private ScoreboardManager scoreboardManager;
     private string playerName;
     private float rotateSpeed = 100f;
     private float forwardSpeed;
@@ -30,6 +31,7 @@ public class PlayerManager : MonoBehaviour
         animator = GetComponent<Animator>();
         pathCreator = GameObject.Find("PathCreator").GetComponent<PathCreator>();
         fixedJoystick = GameObject.Find("Canvas").transform.Find("FixedJoystick").GetComponent<FixedJoystick>();
+        scoreboardManager = GameObject.Find("Canvas").transform.Find("ScoreboardPanel").GetComponent<ScoreboardManager>();
         nickNameText = transform.Find("Canvas").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
@@ -76,6 +78,7 @@ public class PlayerManager : MonoBehaviour
                 forwardSpeed = 0;
                 isFinished = true;
                 JumpAnimation();
+                scoreboardManager.MarkPlayerFinished(nickName);
                 AudioManager.instance.PlayLevelEndAudio();
                 gameManager.CenterScoreboard();
                 gameManager.ShowExitButton();

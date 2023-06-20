@@ -22,6 +22,9 @@ public class ScoreboardManager : MonoBehaviour
     private string nickName;
     private bool isListsSet = false;
 
+    // Dictionary to track if a player has finished the level
+    private Dictionary<string, bool> playerFinishStatus = new Dictionary<string, bool>();
+
     private void Awake()
     {
         instance = this;
@@ -40,7 +43,7 @@ public class ScoreboardManager : MonoBehaviour
 
             if (!isListsSet)
             {
-                myPhotonView.RPC("RPC_SendLists", RpcTarget.All, nickNameList, playerIDList);
+                myPhotonView.RPC("RPC_SendLists", RpcTarget.All, nickNameList, playerIDList, playerFinishStatus);
                 isListsSet = true;
             }
         }
@@ -57,6 +60,9 @@ public class ScoreboardManager : MonoBehaviour
 
     private void SetLists()
     {
+        // Reset finish status for all players
+        playerFinishStatus.Clear();
+
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         GameObject[] AIplayers = GameObject.FindGameObjectsWithTag("AI");
         for (int i = 0; i < players.Length; i++)
@@ -69,7 +75,11 @@ public class ScoreboardManager : MonoBehaviour
             nickName = player.GetComponent<PhotonView>().Owner.NickName;
             //Debug.Log("player nickname: " + nickName);
             nickNameList[i] = nickName;
+
+            // Set finish status as false for all players initially
+            playerFinishStatus.Add(nickNameList[i], false);
         }
+
         for (int i = players.Length, j = 0; i < players.Length + AIplayers.Length; i++, j++)
         {
             GameObject player = AIplayers[j];
@@ -80,15 +90,21 @@ public class ScoreboardManager : MonoBehaviour
             nickName = player.GetComponent<AIManager>().nickName;
             //Debug.Log("ai nickname: " + nickName);
             if (nickName != string.Empty)
+            {
                 nickNameList[i] = nickName;
+                // Set finish status as false for all players initially
+                playerFinishStatus.Add(nickNameList[i], false);
+            }
         }
     }
 
     [PunRPC]
-    private void RPC_SendLists(string[] masterNickNameList, int[] masterPlayerIDList)
+    private void RPC_SendLists(string[] masterNickNameList, int[] masterPlayerIDList, Dictionary<string,bool> masterPlayerFinishStatus)
     {
         nickNameList = masterNickNameList;
         playerIDList = masterPlayerIDList;
+        playerFinishStatus = masterPlayerFinishStatus;
+
         for(int i=0; i<playerList.Length; i++)
         {
             playerList[i] = PhotonView.Find(playerIDList[i]).gameObject;
@@ -115,6 +131,10 @@ public class ScoreboardManager : MonoBehaviour
 
         for (int i = 0; i < distanceList.Count; i++)
         {
+            // Check if the player has finished the level, if true, do not update their position in the scoreboard
+            if (playerFinishStatus[nickNameList[i]])
+                continue;
+
             for (int j = i + 1; j < distanceList.Count; j++)
             {
                 if (distanceList[i] < distanceList[j]-0.1f)
@@ -141,6 +161,16 @@ public class ScoreboardManager : MonoBehaviour
         for (int i = 0; i < orderTransforms.Count; i++)
         {
             orderTransforms[i].parent.Find("PlayerName").GetComponent<TextMeshProUGUI>().text = nickNameList[i];
+        }
+    }
+
+    // Method to mark a player as finished
+    public void MarkPlayerFinished(string playerNickName)
+    {
+        if (playerFinishStatus.ContainsKey(playerNickName))
+        {
+            playerFinishStatus[playerNickName] = true;
+            Debug.Log("finished nickname " + playerNickName);
         }
     }
 

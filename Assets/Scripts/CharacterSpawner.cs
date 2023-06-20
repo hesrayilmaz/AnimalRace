@@ -88,16 +88,16 @@ public class CharacterSpawner : MonoBehaviour
             availableIndices.Add(i);
             availableIndicesArray[i] = i;
         }
-        foreach (int idx in availableIndices)
+        /*foreach (int idx in availableIndices)
         {
             Debug.Log(idx);
-        }
+        }*/
     }
 
     private Vector3 GetRandomPosition()
     {
         randomIndex = availableIndices[UnityEngine.Random.Range(0, availableIndices.Count)];
-        Debug.Log("randomIndex " + randomIndex);        
+        //Debug.Log("randomIndex " + randomIndex);        
         availableIndices.Remove(randomIndex);
         availableIndicesArray[randomIndex] = int.MaxValue;
         //myPhotonView.RPC("RPC_SendPositions", RpcTarget.AllBuffered, availableIndicesArray, spawnPositionsArray);
