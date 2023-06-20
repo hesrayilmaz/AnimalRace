@@ -9,7 +9,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private GameObject obstaclePrefab;
     [SerializeField] private Transform objectContainer;
     [SerializeField] private PathCreator pathCreator;
-    private float distanceBetweenObjects = 70f;
+    private float distanceBetweenObjects = 75f;
     private float distanceBetweenObstacles = 120f;
 
     private Vector3[] spawnPositions;

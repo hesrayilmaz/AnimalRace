@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void LoadSelectedScene(string sceneName)
     {
+        if (sceneName == "MainMenu")
+            PhotonNetwork.Disconnect();
         SceneManager.LoadScene(sceneName);
     }
 
@@ -26,13 +28,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void ExitRoom()
     {
         PhotonNetwork.LeaveRoom();
-        AudioManager.instance.PlayBackgroundAudio();
-        SceneManager.LoadScene("MainMenu");
     }
 
     public override void OnLeftRoom()
     {
         PhotonNetwork.Disconnect();
+        AudioManager.instance.PlayBackgroundAudio();
+        SceneManager.LoadScene("MainMenu");
     }
 
 }

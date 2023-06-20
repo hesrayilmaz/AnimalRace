@@ -28,6 +28,7 @@ public class AudioManager : MonoBehaviour
     public void PlayBackgroundAudio()
     {
         raceAudio.Stop();
+        levelEndAudio.Stop();
         backgroundAudio.Play();
     }
 
