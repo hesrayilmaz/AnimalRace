@@ -7,6 +7,7 @@ using Photon.Pun;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject mainMenuButton;
+    [SerializeField] private RectTransform scoreboard;
 
     public void StartGame()
     {
@@ -23,6 +24,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void ShowExitButton()
     {
         mainMenuButton.SetActive(true);
+    }
+
+    public void CenterScoreboard()
+    {
+        scoreboard.anchoredPosition = new Vector2(960, -540);
+        scoreboard.localScale = new Vector2(2, 2);
     }
 
     public void ExitRoom()

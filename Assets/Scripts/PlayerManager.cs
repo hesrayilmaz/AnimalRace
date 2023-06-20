@@ -77,6 +77,7 @@ public class PlayerManager : MonoBehaviour
                 isFinished = true;
                 JumpAnimation();
                 AudioManager.instance.PlayLevelEndAudio();
+                gameManager.CenterScoreboard();
                 gameManager.ShowExitButton();
             }
 
