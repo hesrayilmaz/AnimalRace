@@ -45,20 +45,16 @@ public class SimpleCollectibleScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Player" && pv.IsMine) 
+		if ((other.tag == "Player" || other.tag == "AI") && pv.IsMine) 
 		{
 			colliderObject = other.gameObject;
 			Collect();
 		}
-		if(other.tag == "AI")
-        {
-			PhotonNetwork.Destroy(gameObject);
-        }
 	}
 
 	public void Collect()
 	{
-		if(collectSound)
+		if(collectSound && colliderObject.tag != "AI")
 			AudioSource.PlayClipAtPoint(collectSound, transform.position);
 		if(collectEffect)
 			Instantiate(collectEffect, transform.position, Quaternion.identity);
@@ -71,17 +67,15 @@ public class SimpleCollectibleScript : MonoBehaviour {
 
 			Debug.Log ("Do NoType Command");
 		}
-		if (CollectibleType == CollectibleTypes.Coin) {
+		if (CollectibleType == CollectibleTypes.Coin && colliderObject.tag!="AI") {
 
 			coinManager.IncreaseCoin(1);
 
-			Debug.Log ("Coin");
 		}
 		if (CollectibleType == CollectibleTypes.Chest) {
 
 			colliderObject.GetComponent<PhotonView>().RPC("RPC_SpeedUp", RpcTarget.All, null);
 
-			Debug.Log ("Chest");
 		}
 		if (CollectibleType == CollectibleTypes.Type3) {
 

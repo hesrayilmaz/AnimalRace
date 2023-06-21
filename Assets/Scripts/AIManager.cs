@@ -158,7 +158,7 @@ public class AIManager : MonoBehaviour
     IEnumerator SpeedUp()
     {
         forwardSpeed = initialSpeed*2;
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
         forwardSpeed = initialSpeed;
     }
 
@@ -171,7 +171,7 @@ public class AIManager : MonoBehaviour
     IEnumerator SlowDown()
     {
         forwardSpeed = initialSpeed/2;
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
         forwardSpeed = initialSpeed;
     }
 }
