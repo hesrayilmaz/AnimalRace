@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
     private string playerName;
     private float rotateSpeed = 100f;
     private float forwardSpeed;
-    private float initialSpeed = 11f;
+    private float initialSpeed = 12f;
     Vector3 direction, addedPos;
     private bool isFinished = false;
     public string nickName;

@@ -688,6 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuButton: {fileID: 0}
+  scoreboard: {fileID: 0}
 --- !u!4 &972592222
 Transform:
   m_ObjectHideFlags: 0
@@ -1767,11 +1768,6 @@ MonoBehaviour:
     isPurchased: false
     isSelected: false
     price: 170
-  - characterName: Snake
-    characterPrefab: {fileID: 1389649336133526384, guid: ed0117ce93b8017438f5318b265102aa, type: 3}
-    isPurchased: false
-    isSelected: false
-    price: 180
   - characterName: Tortoise
     characterPrefab: {fileID: 6606228269694984064, guid: 7bf5225700eb3e94c85ed6af8d6e85f7, type: 3}
     isPurchased: false

@@ -108,16 +108,16 @@ public class AIManager : MonoBehaviour
             JumpAnimation();
             scoreboardManager.MarkPlayerFinished(nickName);
         }
-
         else 
         {
-            if (other.tag == "Obstacle")
-            {
-                pv.RPC("RPC_SlowDown", RpcTarget.All, null);
-            }
-
             if (other.tag != "Ground")
             {
+                if (other.tag == "Obstacle")
+                {
+                    pv.RPC("RPC_SlowDown", RpcTarget.All, null);
+                }
+
+                Debug.Log("TRIGGER OBJECT: " + other.tag);
                 int randomIndex = Random.Range(0, 4);
                 float newLanePosition = (1.5f) - randomIndex;
                 ChangeLane(newLanePosition);
