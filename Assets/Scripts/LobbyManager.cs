@@ -43,7 +43,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void SelectRandomNickName()
     {
-        playerNickName = "Player" + Random.Range(1, 100);
+        playerNickName = "Player" + Random.Range(1, 200);
         SetNickNames();
     }
 

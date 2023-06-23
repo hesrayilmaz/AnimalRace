@@ -42,9 +42,7 @@ public class PlayerManager : MonoBehaviour
         {
             forwardSpeed = initialSpeed;
             playerName = "Player" + PlayerPrefs.GetString("SelectedCharacter", Characters.instance.GetCharacter(0).characterName);
-            nickName = pv.Owner.NickName;
-            nickNameText.text = nickName;
-            nickNameText.color = new Color32(255, 0, 0, 255);
+            pv.RPC("RPC_SetNickName", RpcTarget.AllBuffered, pv.Owner.NickName);
             Debug.Log("player name: " + pv.Owner.NickName);
             AudioManager.instance.PlayRaceAudio();
         }
@@ -68,6 +66,13 @@ public class PlayerManager : MonoBehaviour
         
     }
 
+    [PunRPC]
+    public void RPC_SetNickName(string newNickName)
+    {
+        nickName = newNickName;
+        nickNameText.text = nickName;
+        nickNameText.color = new Color32(255, 0, 0, 255);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (pv.IsMine)

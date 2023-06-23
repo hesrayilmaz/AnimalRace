@@ -36,7 +36,7 @@ public class AIManager : MonoBehaviour
 
     void Start() 
     {
-        nickName = "Player" + Random.Range(1, 100);
+        nickName = "Player" + Random.Range(1, 200);
         nickNameText.text = nickName;
         if (pathCreator != null)
         {
